@@ -44,7 +44,6 @@
         if (response.ok) {
             const user = await response.json();
             alert('Login successful');
-            window.location.href = "/home";
         } else {
             alert('Invalid credentials');
         }
