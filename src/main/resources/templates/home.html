@@ -7,46 +7,62 @@
     <link rel="stylesheet" href="../css/Home.css">
 </head>
 <body>
+<!-- Navbar will be inserted here by navbar.js -->
 
-<header>
-    <div class="logo">Car Rental</div>
-    <nav>
-        <ul>
-            <li><a href="#">Rent a car</a></li>
-            <li><a href="#">Car brands</a></li>
-            <li><a href="#">Contact us</a></li>
-        </ul>
-    </nav>
-    <div class="user-icon">
-        <a href="#"><img src="../Images/user-icon.png" alt="User"></a>
-    </div>
-</header>
+<section class="Tesla-background">
+</section>
+<section class="bottom-section">
+    <section class="Three-simple-steps">
+        <section class="Top-section">
+            <h1>Three simple steps to rent a car</h1>
+            <Section class="Right-side">
+                <p>View rental options</p>
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                    <g clip-path="url(#clip0_78_505)">
+                        <path d="M20.01 13H8V15H20.01V18L24 14L20.01 10V13Z" fill="black"/>
+                    </g>
+                    <defs>
+                        <clipPath id="clip0_78_505">
+                            <rect width="24" height="24" fill="white"/>
+                        </clipPath>
+                    </defs>
+                </svg>
+            </Section>
+        </section>
 
-<section class="hero">
-    <img src="../Images/tesla.jpg" alt="Car" class="hero-image">
+        <div class="Steps">
+            <div class="Step">
+                <img src="../images/Tesla.png" alt="Step 1">
+                <Section class="Text-section">
+                    <h4>Search vehicles</h4>
+                    <p>Explore availabe vehicles</p>
+                </Section>
+            </div>
+            <div class="Step">
+                <img src="../images/Tesla.png" alt="Step 1">
+                <section class="Text-section">
+                    <h4>Filter-vehicles</h4>
+                    <p>Refine vehicle selection</p>
+                </section>
+            </div>
+            <div class="Step">
+                <img src="../images/Tesla.png" alt="Step 1">
+                <section class="Text-section">
+                    <h4>Rent a car</h4>
+                    <p>Start your car rental</p>
+                </section>
+            </div>
+        </div>
+    </section>
+    <section class="Join-now">
+        <button>
+            <p>Join now!</p>
+        </button>
+    </section>
 </section>
 
-<section class="filters">
-    <button>Price</button>
-    <button>Model</button>
-    <button>Year</button>
-    <button>Date</button>
-</section>
-
-<section class="car-list">
-    <div class="car-item"></div>
-    <div class="car-item"></div>
-    <div class="car-item"></div>
-    <div class="car-item"></div>
-    <div class="car-item"></div>
-    <div class="car-item"></div>
-    <div class="car-item"></div>
-    <div class="car-item"></div>
-</section>
-
-<footer>
-    <p>&copy; 2024 Car Rental</p>
-</footer>
+<!-- Import the navbar.js file -->
+<script src="/Navbar.js"></script>
 
 </body>
 </html>
