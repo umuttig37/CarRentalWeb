@@ -1,7 +1,7 @@
 # CarRental Web-App
 Car Rental Web is a web applicaiton designed to mnaging car rentals. It provides users with seamless experience for browsing available cars, making reservations and managing their rentals
 
-## Design System
+## Design System - Created in Figma
 [Figma](https://www.figma.com/design/HLULD5z6pEzlhatXqrLef8/Car-Rental-Web?node-id=76-178&t=fdV6qBFEQg8gVF7b-1)
 ### Figma file preview
 ![image](https://github.com/user-attachments/assets/f703bbde-6895-4d5c-bb23-44983c2923f6)
