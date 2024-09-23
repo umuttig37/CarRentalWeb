@@ -20,4 +20,15 @@ public class PageController {
     public String homePage() {
         return "Home";
     }
+
+    @GetMapping("/rental")
+    public String rentalPage() {
+        return "rental";
+    }
+
+    @GetMapping("/search")
+    public String searchPage() {
+        return "search-results";
+    }
+
 }
