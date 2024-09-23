@@ -1,6 +1,5 @@
 package CarRentalWeb.service;
 
-
 import CarRentalWeb.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,7 +15,6 @@ public class UserService {
     }
 
     public User loginUser(String username, String password) {
-        return userRepository.findByUsernameAndPassword(username, password);
+        return userRepository.findByUserNameAndUserPassword(username, password);
     }
 }
-

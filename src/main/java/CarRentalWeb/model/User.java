@@ -1,22 +1,35 @@
 package CarRentalWeb.model;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
-
-@Document(collection = "users")
+@Entity
 public class User {
     @Id
-    private String id;
-    private String username;
-    private String password;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long userId;
+    private String userName;
+    private String userLastname;
+    private String userFirstName;
+    private String userHetu;
+    private String userPassword;
+    private String userEmail;
 
-    // getters setters
-    public String getId() { return id; }
-    public void setId(String id) { this.id = id; }
-    public String getUsername() { return username; }
-    public void setUsername(String username) { this.username = username; }
-    public String getPassword() { return password; }
-    public void setPassword(String password) { this.password = password; }
+    // Getters and Setters
+    public Long getUserId() { return userId; }
+    public void setUserId(Long userId) { this.userId = userId; }
+    public String getUserName() { return userName; }
+    public void setUserName(String userName) { this.userName = userName; }
+    public String getUserLastname() { return userLastname; }
+    public void setUserLastname(String userLastname) { this.userLastname = userLastname; }
+    public String getUserFirstName() { return userFirstName; }
+    public void setUserFirstName(String userFirstName) { this.userFirstName = userFirstName; }
+    public String getUserHetu() { return userHetu; }
+    public void setUserHetu(String userHetu) { this.userHetu = userHetu; }
+    public String getUserPassword() { return userPassword; }
+    public void setUserPassword(String userPassword) { this.userPassword = userPassword; }
+    public String getUserEmail() { return userEmail; }
+    public void setUserEmail(String userEmail) { this.userEmail = userEmail; }
 }
-

@@ -8,17 +8,17 @@ public class PageController {
 
     @GetMapping("/login")
     public String loginPage() {
-        return "Login";
+        return "login";
     }
 
     @GetMapping("/register")
     public String registerPage() {
-        return "Register";
+        return "register";
     }
 
     @GetMapping("")
     public String homePage() {
-        return "Home";
+        return "home";
     }
 
     @GetMapping("/rental")

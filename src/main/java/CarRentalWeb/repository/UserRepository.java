@@ -1,12 +1,10 @@
 package CarRentalWeb.repository;
 
-
 import CarRentalWeb.model.User;
-import org.springframework.data.mongodb.repository.MongoRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface UserRepository extends MongoRepository<User, String> {
-    User findByUsernameAndPassword(String username, String password);
+public interface UserRepository extends JpaRepository<User, Long> {
+    User findByUserNameAndUserPassword(String userName, String userPassword);
 }
-
