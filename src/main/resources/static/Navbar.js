@@ -8,15 +8,23 @@ function loadCSS(filename) {
 function createNavbar() {
     const navbar = document.createElement('nav');
     navbar.innerHTML = `
-        <div class="navbar-container">
-            <a href="#" class="logo">CarRental</a>
-            <ul class="nav-links">
-                <li><a href="#home">Home</a></li>
-                <li><a href="#vehicles">Vehicles</a></li>
-                <li><a href="#how-it-works">How It Works</a></li>
-                <li><a href="#join">Join Now</a></li>
-            </ul>
-        </div>
+        <header class="transparent-header">
+           <div class="container">
+                <a href="" class="logo">
+                 <img src="../images/logo.png" alt="OTP logo">
+                 </a>
+            <nav class="navbar">
+                <ul class="nav-menu">
+                    <li><a href="#">Services</a></li>
+                    <li><a href="#">Contact</a></li>
+                    <li><a href="#">About</a></li>
+                </ul>
+            </nav>
+                <a href="#" class="user-icon">
+                <img src="../images/user-icon.jpg" alt="User Icon">
+                </a>
+            </div>
+        </header>
     `;
 
     document.body.prepend(navbar);

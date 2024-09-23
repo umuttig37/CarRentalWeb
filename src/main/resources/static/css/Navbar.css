@@ -1,52 +1,108 @@
-nav {
-    padding: 1rem;
+.transparent-header {
     position: fixed;
     width: 100%;
     top: 0;
     left: 0;
-    z-index: 1000;
+    background-color: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    padding: 10px 20px;
+    z-index: 100;
+    transition: background-color 0.3s ease;
+    height: 100px;
 }
 
-.navbar-container {
+.transparent-header .container {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-left: 5%;
-    margin-right: 5%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
 }
 
-.logo {
-    color: white;
-    font-size: 1.5rem;
-    text-decoration: none;
+.transparent-header .logo img {
+    width: 100px;
+    height: 100%;
 }
 
-.nav-links {
+.transparent-header .navbar {
+    flex-grow: 1;
+    text-align: right;
+}
+
+.transparent-header .nav-menu {
     list-style: none;
     display: flex;
-    background-color: #FFFFFF;
-    height: 30px;
-    border-radius: 52px;
-    justify-content: center;
-    padding: 20px;
-    gap: 50px;
-    width: 35%;
+    margin: 0;
+    padding: 0;
 }
 
-.nav-links li {
+.transparent-header .nav-menu li {
+    margin-left: 30px;
+}
+
+.transparent-header .nav-menu li a {
+    color: white;
+    text-decoration: none;
+    font-size: 16px;
+    transition: color 0.3s ease;
+}
+
+.transparent-header .nav-menu li a:hover {
+    color: #ff9800;
+}
+
+/* New styles for the user icon */
+.transparent-header .user-icon {
+    margin-left: 20px;
     display: flex;
     align-items: center;
-    justify-content: center;
 }
 
-.nav-links li a {
+.transparent-header .user-icon img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    transition: transform 0.3s ease;
+}
+
+.transparent-header .user-icon img:hover {
+    transform: scale(1.1);
+}
+
+/* CTA button styles (if needed later) */
+.transparent-header .cta-button {
+    background-color: #ff9800;
+    color: black;
+    padding: 10px 20px;
+    border-radius: 5px;
     text-decoration: none;
-    color: #000;
-    height: 100%;
-    text-align: center;
-    margin-top: 10px;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
 }
 
-.nav-links li a:hover {
-    text-decoration: underline;
+.transparent-header .cta-button:hover {
+    background-color: #ffb84d;
+}
+
+/* Media query for responsiveness */
+@media (max-width: 768px) {
+    .transparent-header .container {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .transparent-header .navbar {
+        margin-top: 10px;
+        text-align: left;
+    }
+
+    .transparent-header .nav-menu {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .transparent-header .nav-menu li {
+        margin: 10px 0;
+    }
 }
