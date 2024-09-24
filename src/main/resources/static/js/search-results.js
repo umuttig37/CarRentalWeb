@@ -30,10 +30,8 @@ document.addEventListener('DOMContentLoaded', function () {
             consumption: '19.5L/100km',
             transmission: 'Automatic'
         },
-        // Add more cars if needed
     ];
-
-    // Retrieve search criteria from localStorage
+    
     const searchCriteria = JSON.parse(localStorage.getItem('carSearch'));
 
     if (searchCriteria) {
@@ -49,7 +47,6 @@ document.addEventListener('DOMContentLoaded', function () {
             return matchesModel && matchesYear && matchesPrice;
         });
 
-        // Display filtered cars
         filteredCars.forEach(car => {
             const carItem = `
                 <li>

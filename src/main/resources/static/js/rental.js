@@ -2,7 +2,6 @@
 
 document.addEventListener('DOMContentLoaded', function () {
 
-    // Navbar and overlay functionality
     const overlay = document.querySelector("[data-overlay]");
     const navbar = document.querySelector("[data-navbar]");
     const navToggleBtn = document.querySelector("[data-nav-toggle-btn]");
@@ -23,7 +22,6 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }
 
-    // Header functionality on scroll
     const header = document.querySelector("[data-header]");
 
     if (header) {
@@ -33,14 +31,12 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
-    // Search form functionality
     const searchForm = document.querySelector('.hero-form');
 
     if (searchForm) {
         searchForm.addEventListener('submit', function (event) {
-            event.preventDefault(); // Prevent page reload on form submit
+            event.preventDefault();
 
-            // Get the values from the input fields
             const carModel = document.getElementById('input-1').value;
             const monthlyPay = document.getElementById('input-2').value;
             const year = document.getElementById('input-3').value;
@@ -54,7 +50,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
             localStorage.setItem('carSearch', JSON.stringify(searchCriteria));
 
-            // Redirect to search results page
             window.location.href = 'search';
         });
     }
