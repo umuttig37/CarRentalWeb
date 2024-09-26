@@ -42,11 +42,11 @@ Car Rental Web is a web application designed for managing car rentals. It provid
 
 <h3 align="center">📦 Dependencies</h3>
 
-- **Spring Boot**
-- **Java**
-- **HTML/CSS**
-- **JavaScript**
-- **MariaDB**
+- **-**
+- **-**
+- **-**
+- **-**
+- **-**
 
 ---
 
