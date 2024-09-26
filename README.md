@@ -85,8 +85,10 @@ Car Rental Web is a web application designed for managing car rentals. It provid
 ---
 
 ## 📊 ER Diagram
-![ER Diagram](https://github.com/user-attachments/assets/a3498790-a376-432c-9b90-186e248400a3)
+![ER Diagram](https://github.com/user-attachments/assets/3bad45b2-3d58-4f95-bd6e-e3207e9fd253)
+
 
 ## 🔗 ER Relational Schema
-![Relation Schema](https://github.com/user-attachments/assets/7faf8e76-a301-40c6-935c-fceb5708f4ef)
+![ER Relational Schema](https://github.com/user-attachments/assets/1ae07ec4-87bf-4e87-87c3-12cf0042529e)
+
 
