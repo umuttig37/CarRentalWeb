@@ -13,7 +13,6 @@ public class User {
     private String userName;
     private String userLastname;
     private String userFirstName;
-    private String userHetu;
     private String userPassword;
     private String userEmail;
 
@@ -26,8 +25,6 @@ public class User {
     public void setUserLastname(String userLastname) { this.userLastname = userLastname; }
     public String getUserFirstName() { return userFirstName; }
     public void setUserFirstName(String userFirstName) { this.userFirstName = userFirstName; }
-    public String getUserHetu() { return userHetu; }
-    public void setUserHetu(String userHetu) { this.userHetu = userHetu; }
     public String getUserPassword() { return userPassword; }
     public void setUserPassword(String userPassword) { this.userPassword = userPassword; }
     public String getUserEmail() { return userEmail; }

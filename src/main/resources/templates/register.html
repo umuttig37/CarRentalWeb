@@ -18,7 +18,6 @@
             <input type="text" id="userName" name="userName" placeholder="Username" required>
             <input type="text" id="userLastname" name="userLastname" placeholder="Last Name" required>
             <input type="text" id="userFirstName" name="userFirstName" placeholder="First Name" required>
-            <input type="text" id="userHetu" name="userHetu" placeholder="Hetu" required>
             <input type="password" id="userPassword" name="userPassword" placeholder="Password" required>
             <input type="email" id="userEmail" name="userEmail" placeholder="Email" required>
 
@@ -43,7 +42,6 @@
         const userName = document.getElementById('userName').value;
         const userLastname = document.getElementById('userLastname').value;
         const userFirstName = document.getElementById('userFirstName').value;
-        const userHetu = document.getElementById('userHetu').value;
         const userPassword = document.getElementById('userPassword').value;
         const userEmail = document.getElementById('userEmail').value;
 
@@ -52,7 +50,7 @@
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({userName, userLastname, userFirstName, userHetu, userPassword, userEmail})
+            body: JSON.stringify({userName, userLastname, userFirstName, userPassword, userEmail})
         });
 
         if (response.ok) {
