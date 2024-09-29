@@ -1,4 +1,4 @@
-package CarRentalWeb.controller;
+/*package CarRentalWeb.controller;
 
 import CarRentalWeb.DTO.UserDTO;
 import CarRentalWeb.model.AuthenticationResponse;
@@ -32,4 +32,4 @@ public class AccessController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found");
         }
     }
-}
+}*/

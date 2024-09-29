@@ -35,4 +35,7 @@ public class PageController {
     public String profilePage() {
         return "profile";
     }
+
+    @GetMapping("/renting")
+    public String rentingPage() { return "renting"; }
 }
