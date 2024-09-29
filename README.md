@@ -40,13 +40,25 @@ Car Rental Web is a web application designed for managing car rentals. It provid
 
 ---
 
-<h3 align="center">📦 Dependencies</h3>
+### 📦 Dependencies
 
-- **-**
-- **-**
-- **-**
-- **-**
-- **-**
+| **Dependency**                                 | **Description**                                     |
+|------------------------------------------------|-----------------------------------------------------|
+| [Spring Boot Starter Web](https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-web) | For building web applications and RESTful services. |
+| [Spring Data JPA](https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-data-jpa) | For database interaction and ORM with JPA.          |
+| [MariaDB Driver](https://mvnrepository.com/artifact/org.mariadb.jdbc/mariadb-java-client) | JDBC driver for connecting to MariaDB.              |
+| [Thymeleaf](https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-thymeleaf) | Template engine for dynamic HTML generation.        |
+| [Lombok](https://mvnrepository.com/artifact/org.projectlombok/lombok) | Reduces boilerplate code with annotations.          |
+| [DevTools](https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-devtools) | Enables hot reloading for easier development.       |
+| [Actuator](https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-actuator) | Provides operational insights into running apps.    |
+| [Spring Boot Starter Test](https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-test) | Provides testing libraries for Spring Boot apps.    |
+| [JJWT (Java JWT)](https://mvnrepository.com/artifact/io.jsonwebtoken/jjwt) | For handling JSON Web Tokens (JWT) in authentication. |
+| [Spring Security](https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-security) | Provides authentication and authorization services. |
+| [Servlet API](https://mvnrepository.com/artifact/javax.servlet/javax.servlet-api) | Standard API for servlet-based applications.        |
+| [JAXB API](https://mvnrepository.com/artifact/javax.xml.bind/jaxb-api) | Java Architecture for XML Binding.                  |
+| [Surefire Plugin](https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-surefire-plugin) | For running unit tests and generating reports.      |
+| [JaCoCo Maven Plugin](https://mvnrepository.com/artifact/org.jacoco/jacoco-maven-plugin) | For generating test coverage reports.               |
+
 
 ---
 
