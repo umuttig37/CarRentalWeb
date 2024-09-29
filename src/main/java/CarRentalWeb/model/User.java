@@ -1,9 +1,6 @@
 package CarRentalWeb.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 @Entity
 public class User {
@@ -14,6 +11,7 @@ public class User {
     private String userLastname;
     private String userFirstName;
     private String userPassword;
+    @Column(unique = true)  // Ensure emails are unique
     private String userEmail;
 
     // Getters and Setters

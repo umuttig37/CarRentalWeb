@@ -8,14 +8,14 @@ body {
     background: #FEF9F9;
 }
 
-.Register {
+.Profile {
     display: flex;
     flex-direction: row;
     width: 100vw;
     overflow: hidden;
 }
 
-.Register .Left-side {
+.Profile .Left-side {
     background-color: black;
     width: 30%;
     height: 99.8vh;
@@ -25,8 +25,7 @@ body {
     background-repeat: no-repeat;
 }
 
-
-.Register .Right-side {
+.Profile .Right-side {
     width: 65%;
     height: 99.8vh;
     display: flex;
@@ -38,11 +37,9 @@ body {
     position: relative;
     z-index: 2;
     left: -5%;
-
-
 }
 
-#registerForm {
+#profileForm {
     width: 50%;
     height: 80%;
     display: flex;
@@ -51,26 +48,27 @@ body {
     align-items: center;
     gap: 25px;
 }
-
-#registerForm .User-Agreement {
-    text-align: center;
-    font-size: 1em;
-    width: 75%;
+#profileForm .input-container {
+    position: relative;
+    width: 100%;
 }
-
-#registerForm .User-Agreement a {
-    color: #3F3CEE;
-    text-decoration: none;
+#profileForm .input-container .fa-edit {
+    position: absolute;
+    left: 95%;
+    top: 50%;
 }
-
-
-#registerForm input {
+#profileForm .input-container .fa-edit:hover {
+    cursor: pointer;
+}
+#profileForm .input-container i {
+    position: absolute;
+}
+#profileForm input {
     background-color: transparent;
     border: 0;
-    border-bottom: 1.5px solid #C4C4C4;;
+    border-bottom: 1.5px solid #C4C4C4;
 
     color: #5C5C5C;
-
     font-family: Montserrat;
     font-size: 14px;
     font-style: normal;
@@ -78,11 +76,14 @@ body {
     line-height: 136.5%;
     letter-spacing: 1.12px;
     width: 100%;
-
     height: 50px;
 }
 
-#registerForm button {
+#profileForm input.disabled {
+    border-bottom: 1.5px solid red;
+}
+
+#profileForm button {
     display: flex;
     padding: 18px 0px 19px 0px;
     justify-content: center;
@@ -90,7 +91,6 @@ body {
     border-radius: 8px;
     background: #120A2F;
     width: 100%;
-
     color: #FFF;
 
     font-family: Montserrat;
@@ -101,21 +101,27 @@ body {
     letter-spacing: 1.28px;
 }
 
-#registerForm button:hover {
+#profileForm button:hover {
     cursor: pointer;
 }
 
-#registerForm .Already-Account {
+#profileForm .Logout-Section {
     text-align: left;
     width: 100%;
 }
 
-#registerForm .Already-Account a {
+#profileForm .Logout-Section a {
     color: #3F3CEE;
     text-decoration: none;
 }
 
-#registerForm h1 {
+#profileForm h1 {
     width: 100%;
     text-align: left;
+}
+
+#profileForm label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
 }

@@ -58,7 +58,6 @@
     display: flex;
     align-items: center;
 }
-
 .transparent-header .user-icon img {
     width: 40px;
     height: 40px;
@@ -84,7 +83,10 @@
 .transparent-header .cta-button:hover {
     background-color: #ffb84d;
 }
-
+.container .user-icon:hover {
+    cursor: pointer;
+    scale: 1.1;
+}
 /* Media query for responsiveness */
 @media (max-width: 768px) {
     .transparent-header .container {

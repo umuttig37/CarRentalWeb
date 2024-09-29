@@ -31,4 +31,8 @@ public class PageController {
         return "search-results";
     }
 
+    @GetMapping("/profile")
+    public String profilePage() {
+        return "profile";
+    }
 }

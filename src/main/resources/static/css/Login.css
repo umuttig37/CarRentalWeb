@@ -20,14 +20,11 @@ body {
     background-color: black;
     width: 30%;
     height: 99.8vh;
+    background-image: url(../images/Tesla.jpg);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
 }
-
-.Login .Left-side img {
-    height: 100%;
-    width: 100%;
-    object-fit: cover;
-}
-
 .Login .Right-side {
     width: 65%;
     height: 99.8vh;

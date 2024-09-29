@@ -20,7 +20,6 @@ public class Vehicle {
     private String vehicleTrans;
     private String vehicleType;
 
-    // Getters and Setters
     public Long getVehicleId() { return vehicleId; }
     public void setVehicleId(Long vehicleId) { this.vehicleId = vehicleId; }
     public int getVehiclePrice() { return vehiclePrice; }

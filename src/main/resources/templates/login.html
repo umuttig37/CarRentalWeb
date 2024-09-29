@@ -5,11 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
     <link rel="stylesheet" href="../css/Login.css">
+    <script src="/auth.js" defer></script>
 </head>
 <body>
 <div class="Login">
     <div class="Left-side">
-        <img src="../Images/Tesla.jpg" alt="">
     </div>
     <div class="Right-side">
         <form id="loginForm">
@@ -23,9 +23,9 @@
                 <a href="register">Create one</a>
             </p>
         </form>
+        <p id="errorMessage" style="color: red; display: none;"></p> <!-- For displaying error messages -->
     </div>
 </div>
-
 
 <script>
     document.getElementById('loginForm').addEventListener('submit', async (e) => {
@@ -33,21 +33,34 @@
         const username = document.getElementById('username').value;
         const password = document.getElementById('password').value;
 
-        const response = await fetch('/api/users/login', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded',
-            },
-            body: new URLSearchParams({username, password})
-        });
+        try {
+            const response = await fetch('/api/users/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ username, password })
+            });
 
-        if (response.ok) {
-            const user = await response.json();
-            alert('Login successful');
-        } else {
-            alert('Invalid credentials');
+            if (response.ok) {
+                const user = await response.json();
+                localStorage.setItem('token', user.token);
+                localStorage.setItem('username', user.username);
+                window.location.href = '/';
+            } else {
+                const errorText = await response.text(); // Get error message
+                showErrorMessage(errorText || 'Invalid credentials');
+            }
+        } catch (error) {
+            showErrorMessage('An unexpected error occurred. Please try again.');
         }
     });
+
+    function showErrorMessage(message) {
+        const errorMessageElement = document.getElementById('errorMessage');
+        errorMessageElement.innerText = message;
+        errorMessageElement.style.display = 'block';
+    }
 </script>
 </body>
 </html>
