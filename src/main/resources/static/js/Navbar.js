@@ -11,14 +11,12 @@ function createNavbar() {
     navbar.innerHTML = `
         <header class="transparent-header">
             <div class="container">
-                <a href="#" class="logo">
+                <a href="/" class="logo">
                     <img src="../images/logo.png" alt="OTP logo">
                 </a>
                 <nav class="navbar">
                     <ul class="nav-menu">
-                        <li><a href="#">Services</a></li>
-                        <li><a href="#">Contact</a></li>
-                        <li><a href="#">About</a></li>
+                        <li><a href="/rental">Rent a car</a></li>
                     </ul>
                 </nav>
                 <div class="user-icon" id="profileIcon">

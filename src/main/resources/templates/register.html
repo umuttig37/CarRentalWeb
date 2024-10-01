@@ -36,6 +36,7 @@
     </div>
 </div>
 <script>
+    localStorage.getItem('token') && window.location.replace('/profile');
     document.getElementById('registerForm').addEventListener('submit', async (e) => {
         e.preventDefault();
         const userName = document.getElementById('userName').value;
@@ -54,6 +55,7 @@
 
         if (response.ok) {
             const user = await response.json();
+            window.location.href = '/login';
             alert('Registration successful');
         } else {
             alert('Registration failed');

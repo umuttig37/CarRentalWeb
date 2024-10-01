@@ -28,6 +28,7 @@
 </div>
 
 <script>
+    localStorage.getItem('token') && window.location.replace('/profile');
     document.getElementById('loginForm').addEventListener('submit', async (e) => {
         e.preventDefault();
         const username = document.getElementById('username').value;

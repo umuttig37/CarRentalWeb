@@ -7,6 +7,10 @@ document.addEventListener('DOMContentLoaded', async function () {
         if (!response.ok) {
             throw new Error('Network response was not ok');
         }
+        if (cars.length === 0) {
+            carList.innerHTML = '<p>No cars available at the moment.</p>';
+            return;
+        }
         const cars = await response.json();
 
         // Populate the list with car data
