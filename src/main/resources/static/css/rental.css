@@ -471,6 +471,10 @@ button, a {
     border-radius: var(--radius-18);
     padding: 10px;
     box-shadow: var(--shadow-1);
+    transition: transform 0.2s ease;
+}
+.featured-car-card:hover {
+    transform: scale(1.02);
 }
 
 .featured-car-card .card-banner {
