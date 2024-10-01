@@ -23,4 +23,8 @@ public class VehicleService {
         logger.info("Fetched {} vehicles from the database", vehicles.size());
         return vehicles;
     }
+
+    public void addVehicles(List<Vehicle> vehicles) {
+        vehicleRepository.saveAll(vehicles);  // Save the list of vehicles to the repository
+    }
 }

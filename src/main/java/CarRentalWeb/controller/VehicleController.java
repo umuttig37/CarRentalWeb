@@ -4,8 +4,8 @@ import CarRentalWeb.model.Vehicle;
 import CarRentalWeb.service.VehicleService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -25,37 +25,12 @@ public class VehicleController {
         logger.info("Returning {} vehicles to the client", vehicles.size());
         return vehicles;
     }
-}
 
-
-
-/*import CarRentalWeb.model.Vehicle;
-import CarRentalWeb.repository.VehicleRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
-
-@RestController
-@RequestMapping("/api/vehicles")
-public class VehicleController {
-
-    private final VehicleRepository vehicleRepository;
-
-    @Autowired
-    public VehicleController(VehicleRepository vehicleRepository) {
-        this.vehicleRepository = vehicleRepository;
-    }
-
+    // New POST method to add multiple vehicles
     @PostMapping("/add")
-    public void addVehicle(@RequestBody Vehicle vehicle) {
-        vehicleRepository.save(vehicle);
-        System.out.println("Vehicle added: " + vehicle.getVehicleReg());
+    public ResponseEntity<?> addMultipleVehicles(@RequestBody List<Vehicle> vehicles) {
+        vehicleService.addVehicles(vehicles);  // Calling the service to save vehicles
+        logger.info("Added {} vehicles to the database", vehicles.size());
+        return ResponseEntity.ok().build();
     }
-
-    @PostMapping("/addMultiple")
-    public void addMultipleVehicles(@RequestBody List<Vehicle> vehicles) {
-        vehicleRepository.saveAll(vehicles);
-        System.out.println(vehicles.size() + " vehicles added.");
-    }
-}*/
+}

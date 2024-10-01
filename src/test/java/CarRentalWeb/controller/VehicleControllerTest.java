@@ -1,11 +1,13 @@
-/*package CarRentalWeb.controller;
+package CarRentalWeb.controller;
 
 import CarRentalWeb.model.Vehicle;
 import CarRentalWeb.repository.VehicleRepository;
+import CarRentalWeb.service.VehicleService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.ActiveProfiles;
 
 import java.util.Arrays;
@@ -18,10 +20,13 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class VehicleControllerTest {
 
     @Autowired
+    private VehicleController vehicleController;
+
+    @Autowired
     private VehicleRepository vehicleRepository;
 
     @Autowired
-    private VehicleController vehicleController;
+    private VehicleService vehicleService;
 
     @BeforeEach
     public void setUp() {
@@ -29,25 +34,19 @@ public class VehicleControllerTest {
     }
 
     @Test
-    public void testAddVehicle() {
-        Vehicle vehicle = new Vehicle();
-        vehicle.setVehicleName("Test Vehicle");
-
-        vehicleController.addVehicle(vehicle);
-        assertEquals("Test Vehicle", vehicle.getVehicleName());
-    }
-
-    @Test
+    @WithMockUser(username = "testUser")
     public void testAddMultipleVehicles() {
         Vehicle vehicle1 = new Vehicle();
-        vehicle1.setVehicleName("Vehicle 1");
+        vehicle1.setVehicleReg("REG123");
+        vehicle1.setVehicleTitle("Vehicle 1");
 
         Vehicle vehicle2 = new Vehicle();
-        vehicle2.setVehicleName("Vehicle 2");
+        vehicle2.setVehicleReg("REG124");
+        vehicle2.setVehicleTitle("Vehicle 2");
 
         List<Vehicle> vehicles = Arrays.asList(vehicle1, vehicle2);
 
         vehicleController.addMultipleVehicles(vehicles);
-        assertEquals(2, vehicles.size());
+        assertEquals(2, vehicleRepository.findAll().size());
     }
-}*/
+}
