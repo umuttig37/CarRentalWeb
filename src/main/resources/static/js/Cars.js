@@ -44,7 +44,7 @@ document.addEventListener('DOMContentLoaded', async function () {
                         </ul>
                         <div class="card-price-wrapper">
                             <p class="card-price"><strong>${car.vehiclePrice}€</strong> / month</p>
-                            <a href="renting.html?carReg=${car.vehicleReg}" class="rent-now-btn">Rent Now</a> 
+                            <a href="renting?carReg=${car.vehicleReg}" class="rent-now-btn">Rent Now</a> 
                         </div>
                     </div>
                 </div>

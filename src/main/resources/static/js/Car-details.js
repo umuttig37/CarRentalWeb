@@ -1,92 +1,62 @@
-const cars = [
-    {
-        vehicle_reg: "AMG-101",
-        vehicle_title: "Mercedes AMG GT S",
-        vehicle_year: 2020,
-        vehicle_people: "2 People",
-        vehicle_fuel: "Gasoline",
-        vehicle_consumption: "19.5L/100km",
-        vehicle_transmission: "Automatic",
-        vehicle_price: 2300,
-        vehicle_available: 1,
-        image: "https://raw.githubusercontent.com/umuttgti97/carRentalImages/refs/heads/main/mercedes-gts.jpg"
-    },
-    {
-        vehicle_reg: "ÄMM-3",
-        vehicle_title: "BMW M3",
-        vehicle_year: 2019,
-        vehicle_people: "4 People",
-        vehicle_fuel: "Gasoline",
-        vehicle_consumption: "15.0L/100km",
-        vehicle_transmission: "Automatic",
-        vehicle_price: 1500,
-        vehicle_available: 1,
-        image: "https://raw.githubusercontent.com/umuttgti97/carRentalImages/refs/heads/main/m3.jpg"
-    },
-    {
-        vehicle_reg: "ÄMM-5",
-        vehicle_title: "BMW M5",
-        vehicle_year: 2021,
-        vehicle_people: "4 People",
-        vehicle_fuel: "Gasoline",
-        vehicle_consumption: "20.0L/100km",
-        vehicle_transmission: "Automatic",
-        vehicle_price: 2000,
-        vehicle_available: 1,
-        image: "https://raw.githubusercontent.com/umuttgti97/carRentalImages/refs/heads/main/bmw-m5.jpg"
-    },
-    {
-        vehicle_reg: "ÄRR-8",
-        vehicle_title: "Audi R8",
-        vehicle_year: 2021,
-        vehicle_people: "2 People",
-        vehicle_fuel: "Gasoline",
-        vehicle_consumption: "20.0L/100km",
-        vehicle_transmission: "Automatic",
-        vehicle_price: 2100,
-        vehicle_available: 1,
-        image: "https://raw.githubusercontent.com/umuttgti97/carRentalImages/refs/heads/main/audi-r8.jpg"
-    },
-    {
-        vehicle_reg: "ÄRS-6",
-        vehicle_title: "Audi RS6",
-        vehicle_year: 2019,
-        vehicle_people: "5 People",
-        vehicle_fuel: "Gasoline",
-        vehicle_consumption: "20.0L/100km",
-        vehicle_transmission: "Automatic",
-        vehicle_price: 1900,
-        vehicle_available: 1,
-        image: "https://raw.githubusercontent.com/umuttgti97/carRentalImages/refs/heads/main/rs6.jpg"
-    },
-    {
-        vehicle_reg: "ESC-4",
-        vehicle_title: "Cadillac Escalade",
-        vehicle_year: 2020,
-        vehicle_people: "6 People",
-        vehicle_fuel: "Gasoline",
-        vehicle_consumption: "19.0L/100km",
-        vehicle_transmission: "Automatic",
-        vehicle_price: 1700,
-        vehicle_available: 1,
-        image: "https://raw.githubusercontent.com/umuttgti97/carRentalImages/refs/heads/main/Cadillac-Escalade.jpg"
+document.addEventListener('DOMContentLoaded', async function () {
+    // Get the car registration from the URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const carReg = urlParams.get('carReg');
+
+    if (carReg) {
+        try {
+            // Fetch car data from the backend API
+            const response = await fetch('/api/vehicle');
+            if (!response.ok) {
+                throw new Error('Failed to fetch vehicle data.');
+            }
+            const cars = await response.json();
+
+            // Find the car by its registration number
+            const car = cars.find(c => c.vehicleReg === carReg);
+
+            if (car) {
+                // Update the page with the car details
+                document.getElementById('car-image').src = car.image;
+                document.getElementById('car-name').textContent = car.vehicleTitle;
+                document.getElementById('car-price').textContent = car.vehiclePrice;
+
+                // Get input elements for dates
+                const pickupDateInput = document.getElementById('pickup-date');
+                const dropoffDateInput = document.getElementById('dropoff-date');
+                const calculatedPriceElement = document.getElementById('calculated-price');
+
+                function calculatePrice() {
+                    const pickupDate = new Date(pickupDateInput.value);
+                    const dropoffDate = new Date(dropoffDateInput.value);
+
+                    // Check if both dates are selected and the drop-off date is after the pickup date
+                    if (pickupDate && dropoffDate && !isNaN(pickupDate) && !isNaN(dropoffDate) && dropoffDate > pickupDate) {
+                        const timeDiff = dropoffDate.getTime() - pickupDate.getTime();
+                        const daysDiff = Math.ceil(timeDiff / (1000 * 3600 * 24));
+
+                        const totalPrice = daysDiff * car.vehiclePrice;
+
+                        // Check if calculatedPriceElement exists before setting its value
+                        if (calculatedPriceElement) {
+                            calculatedPriceElement.textContent = totalPrice;
+                        }
+                    } else {
+                        // If the dates are invalid or not selected, show the price per day
+                        if (calculatedPriceElement) {
+                            calculatedPriceElement.textContent = car.vehiclePrice;
+                        }
+                    }
+                }
+                pickupDateInput.addEventListener('input', calculatePrice);
+                dropoffDateInput.addEventListener('input', calculatePrice);
+
+            } else {
+                alert('Car not found!');
+            }
+        } catch (error) {
+            console.error('Error fetching car data:', error);
+        }
     }
-
-];
-
-// Get the car ID from the URL
-const urlParams = new URLSearchParams(window.location.search);
-const carReg = urlParams.get('carReg');
-
-// Find the car based on the carId
-const car = cars.find(c => c.vehicle_reg == carReg);
-
-// Populate the page with car details
-if (car) {
-    document.getElementById('car-image').src = `../images/${car.image}`;
-    document.getElementById('car-name').textContent = car.name;
-    document.getElementById('car-description').textContent = car.description;
-    document.getElementById('car-price').textContent = car.price;
-} else {
-    alert('Car not found!');
-}
+    // Function to calculate the price
+});

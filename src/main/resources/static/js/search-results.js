@@ -1,85 +1,62 @@
-document.addEventListener('DOMContentLoaded', function () {
-    const carListItems = [
-        {
-            model: 'BMW M5',
-            year: 2021,
-            price: 2000,
-            image: '../images/bmw-m5.jpg',
-            people: 4,
-            fuel: 'Gasoline',
-            consumption: '20.0L/100km',
-            transmission: 'Automatic'
-        },
-        {
-            model: 'BMW M3',
-            year: 2019,
-            price: 1500,
-            image: '../images/m3.jpg',
-            people: 4,
-            fuel: 'Gasoline',
-            consumption: '15.0L/100km',
-            transmission: 'Automatic'
-        },
-        {
-            model: 'Mercedes AMG GT S',
-            year: 2020,
-            price: 2300,
-            image: '../images/mercedes-gts.jpg',
-            people: 2,
-            fuel: 'Gasoline',
-            consumption: '19.5L/100km',
-            transmission: 'Automatic'
-        },
-    ];
-    
+document.addEventListener('DOMContentLoaded', async function () {
     const searchCriteria = JSON.parse(localStorage.getItem('carSearch'));
 
     if (searchCriteria) {
-        const {carModel, monthlyPay, year} = searchCriteria;
-
+        const { carModel, monthlyPay, year } = searchCriteria;
         const resultsList = document.getElementById('results-list');
 
-        // Filter cars based on search criteria
-        const filteredCars = carListItems.filter(car => {
-            const matchesModel = !carModel || car.model.toLowerCase().includes(carModel.toLowerCase());
-            const matchesYear = !year || car.year >= parseInt(year);
-            const matchesPrice = !monthlyPay || car.price <= parseInt(monthlyPay);
-            return matchesModel && matchesYear && matchesPrice;
-        });
+        try {
+            const response = await fetch('/api/vehicle');
+            if (!response.ok) {
+                throw new Error('Failed to fetch vehicle data.');
+            }
+            const cars = await response.json();
 
-        filteredCars.forEach(car => {
-            const carItem = `
-                <li>
-                    <div class="featured-car-card">
-                        <figure class="card-banner">
-                            <img src="${car.image}" alt="${car.model}" loading="lazy" width="440" height="300" class="w-100">
-                        </figure>
-                        <div class="card-content">
-                            <div class="card-title-wrapper">
-                                <h3 class="h3 card-title">
-                                    <a href="#">${car.model}</a>
-                                </h3>
-                                <data class="year" value="${car.year}">${car.year}</data>
-                            </div>
-                            <ul class="card-list">
-                                <li class="card-list-item"><ion-icon name="people-outline"></ion-icon><span class="card-item-text">${car.people} People</span></li>
-                                <li class="card-list-item"><ion-icon name="flash-outline"></ion-icon><span class="card-item-text">${car.fuel}</span></li>
-                                <li class="card-list-item"><ion-icon name="speedometer-outline"></ion-icon><span class="card-item-text">${car.consumption}</span></li>
-                                <li class="card-list-item"><ion-icon name="hardware-chip-outline"></ion-icon><span class="card-item-text">${car.transmission}</span></li>
-                            </ul>
-                            <div class="card-price-wrapper">
-                                <p class="card-price"><strong>${car.price}€</strong> / month</p>
-                                <button class="btn">Rent now</button>
+            const filteredCars = cars.filter(car => {
+                const matchesModel = !carModel || car.vehicleTitle.toLowerCase().includes(carModel.toLowerCase());
+                const matchesYear = !year || car.vehicleYear >= parseInt(year);
+                const matchesPrice = !monthlyPay || car.vehiclePrice <= parseInt(monthlyPay);
+                return matchesModel && matchesYear && matchesPrice;
+            });
+
+            // Display the filtered cars
+            filteredCars.forEach(car => {
+                const carItem = `
+                    <li>
+                        <div class="featured-car-card">
+                            <figure class="card-banner">
+                                <img src="${car.image}" alt="${car.vehicleTitle}" loading="lazy" width="440" height="300" class="w-100">
+                            </figure>
+                            <div class="card-content">
+                                <div class="card-title-wrapper">
+                                    <h3 class="h3 card-title">
+                                        <a href="#">${car.vehicleTitle}</a>
+                                    </h3>
+                                    <data class="year" value="${car.vehicleYear}">${car.vehicleYear}</data>
+                                </div>
+                                <ul class="card-list">
+                                    <li class="card-list-item"><ion-icon name="people-outline"></ion-icon><span class="card-item-text">${car.vehiclePeople} People</span></li>
+                                    <li class="card-list-item"><ion-icon name="flash-outline"></ion-icon><span class="card-item-text">${car.vehicleFuel}</span></li>
+                                    <li class="card-list-item"><ion-icon name="speedometer-outline"></ion-icon><span class="card-item-text">${car.vehicleConsumption} L/100km</span></li>
+                                    <li class="card-list-item"><ion-icon name="hardware-chip-outline"></ion-icon><span class="card-item-text">${car.vehicleTransmission}</span></li>
+                                </ul>
+                                <div class="card-price-wrapper">
+                                    <p class="card-price"><strong>${car.vehiclePrice}€</strong> / month</p>
+                                    <a href="renting?carReg=${car.vehicleReg}" class="btn">Rent now</a>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </li>
-            `;
-            resultsList.insertAdjacentHTML('beforeend', carItem);
-        });
+                    </li>
+                `;
+                resultsList.insertAdjacentHTML('beforeend', carItem);
+            });
 
-        if (filteredCars.length === 0) {
-            resultsList.innerHTML = '<p>No cars match your search criteria.</p>';
+            if (filteredCars.length === 0) {
+                resultsList.innerHTML = '<p>No cars match your search criteria.</p>';
+            }
+        } catch (error) {
+            console.error('Error fetching cars:', error);
+            resultsList.innerHTML = '<p>Sorry, we couldn’t load the car data. Please try again later.</p>';
         }
     }
 });
