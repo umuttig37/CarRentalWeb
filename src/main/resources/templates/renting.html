@@ -28,6 +28,12 @@
         </div>
 
         <div class="form-group">
+            <label for="email">Phone Number:</label>
+            <input type="email" id="email" required>
+        </div>
+
+
+        <div class="form-group">
             <label for="pickup-location">Pickup Location:</label>
             <input type="text" id="pickup-location" required>
         </div>
@@ -56,42 +62,6 @@
     </form>
 </div>
 
-<script>
-    const urlParams = new URLSearchParams(window.location.search);
-    const carType = urlParams.get('car');
-
-    const carData = {
-        'huracan': {
-            name: 'Lamborghini Huracan',
-            image: '../images/huracan.png'
-        },
-
-    };
-
-    if (carData[carType]) {
-        document.getElementById('car-name').textContent = carData[carType].name;
-        document.getElementById('car-image').src = carData[carType].image;
-    }
-
-    document.getElementById('rental-form').addEventListener('submit', function(event) {
-        event.preventDefault();
-
-        const rentalDetails = {
-            name: document.getElementById('name').value,
-            id: document.getElementById('id').value,
-            phone: document.getElementById('phone').value,
-            pickupLocation: document.getElementById('pickup-location').value,
-            pickupDate: document.getElementById('pickup-date').value,
-            pickupTime: document.getElementById('pickup-time').value,
-            dropoffDate: document.getElementById('dropoff-date').value,
-            dropoffTime: document.getElementById('dropoff-time').value,
-            car: carData[carType].name
-        };
-
-        console.log('Rental Details:', rentalDetails);
-
-        alert('Rental confirmed for ' + rentalDetails.car);
-    });
-</script>
+<script src="/js/Car-details.js"></script>
 </body>
 </html>

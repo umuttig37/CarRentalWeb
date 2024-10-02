@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', async function () {
             throw new Error('Network response was not ok');
         }
         const cars = await response.json();
-
+        let carID = 0;
         // Populate the list with car data
         cars.forEach(car => {
             const li = document.createElement('li');
@@ -44,7 +44,7 @@ document.addEventListener('DOMContentLoaded', async function () {
                         </ul>
                         <div class="card-price-wrapper">
                             <p class="card-price"><strong>${car.vehiclePrice}€</strong> / month</p>
-                        <button class="rent-now-btn" onclick="openRentPage(car)">Rent Now</button>
+                            <a href="renting.html?carReg=${car.vehicleReg}" class="rent-now-btn">Rent Now</a> 
                         </div>
                     </div>
                 </div>
@@ -56,3 +56,5 @@ document.addEventListener('DOMContentLoaded', async function () {
         carList.innerHTML = '<p>Sorry, we couldn’t load the car data. Please try again later.</p>';
     }
 });
+
+//<button class="rent-now-btn" a href="renting.html?carId=1">Rent Now</button>
