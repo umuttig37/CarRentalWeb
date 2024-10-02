@@ -125,3 +125,7 @@ body {
     margin-bottom: 5px;
     font-weight: bold;
 }
+.Home-click:hover {
+    cursor: pointer;
+    opacity: 80%;
+}
