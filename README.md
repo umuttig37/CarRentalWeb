@@ -70,7 +70,6 @@ Car Rental Web is a web application designed for managing car rentals. It provid
 | **UserId**      | Unique identifier for each user.              |
 | **UserFirstName** | The first name of the user.                  |
 | **UserLastName**  | The last name of the user.                   |
-| **UserHetu**    | A unique identifier (similar to SSN).         |
 | **UserPassword** | Password for the user’s account.             |
 | **UserEmail**   | User's email address.                         |
 
