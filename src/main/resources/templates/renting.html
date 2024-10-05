@@ -9,37 +9,15 @@
 <body>
 <div class="rent-page">
     <h1>Rent <span id="car-name"></span></h1>
+    <h1>Price per day: <span id="car-price"></span></h1>
+    <h1>Total Price: <span id="calculated-price"></span></h1> <!-- This is the missing element -->
     <img id="car-image" src="" alt="Car Image">
 
     <form id="rental-form">
-        <div class="form-group">
-            <label for="name">Name:</label>
-            <input type="text" id="name" required>
-        </div>
-
-        <div class="form-group">
-            <label for="id">ID:</label>
-            <input type="text" id="id" required>
-        </div>
-
-        <div class="form-group">
-            <label for="phone">Phone Number:</label>
-            <input type="tel" id="phone" required>
-        </div>
-
-        <div class="form-group">
-            <label for="pickup-location">Pickup Location:</label>
-            <input type="text" id="pickup-location" required>
-        </div>
-
+        <!-- Form elements... -->
         <div class="form-group">
             <label for="pickup-date">Pickup Date:</label>
             <input type="date" id="pickup-date" required>
-        </div>
-
-        <div class="form-group">
-            <label for="pickup-time">Pickup Time:</label>
-            <input type="time" id="pickup-time" required>
         </div>
 
         <div class="form-group">
@@ -47,51 +25,10 @@
             <input type="date" id="dropoff-date" required>
         </div>
 
-        <div class="form-group">
-            <label for="dropoff-time">Drop-off Time:</label>
-            <input type="time" id="dropoff-time" required>
-        </div>
-
         <button type="submit">Confirm Rental</button>
     </form>
 </div>
 
-<script>
-    const urlParams = new URLSearchParams(window.location.search);
-    const carType = urlParams.get('car');
-
-    const carData = {
-        'huracan': {
-            name: 'Lamborghini Huracan',
-            image: '../images/huracan.png'
-        },
-
-    };
-
-    if (carData[carType]) {
-        document.getElementById('car-name').textContent = carData[carType].name;
-        document.getElementById('car-image').src = carData[carType].image;
-    }
-
-    document.getElementById('rental-form').addEventListener('submit', function(event) {
-        event.preventDefault();
-
-        const rentalDetails = {
-            name: document.getElementById('name').value,
-            id: document.getElementById('id').value,
-            phone: document.getElementById('phone').value,
-            pickupLocation: document.getElementById('pickup-location').value,
-            pickupDate: document.getElementById('pickup-date').value,
-            pickupTime: document.getElementById('pickup-time').value,
-            dropoffDate: document.getElementById('dropoff-date').value,
-            dropoffTime: document.getElementById('dropoff-time').value,
-            car: carData[carType].name
-        };
-
-        console.log('Rental Details:', rentalDetails);
-
-        alert('Rental confirmed for ' + rentalDetails.car);
-    });
-</script>
+<script src="/js/Car-details.js"></script>
 </body>
 </html>

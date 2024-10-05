@@ -70,7 +70,6 @@ Car Rental Web is a web application designed for managing car rentals. It provid
 | **UserId**      | Unique identifier for each user.              |
 | **UserFirstName** | The first name of the user.                  |
 | **UserLastName**  | The last name of the user.                   |
-| **UserHetu**    | A unique identifier (similar to SSN).         |
 | **UserPassword** | Password for the user’s account.             |
 | **UserEmail**   | User's email address.                         |
 
@@ -103,4 +102,6 @@ Car Rental Web is a web application designed for managing car rentals. It provid
 ## 🔗 ER Relational Schema
 ![ER Relational Schema](https://github.com/user-attachments/assets/1ae07ec4-87bf-4e87-87c3-12cf0042529e)
 
+## 📊 Use Case Diagram
+![UseCaseDiagram](https://github.com/user-attachments/assets/229c4595-fffc-4cff-9223-677eb7cbe1a6)
 

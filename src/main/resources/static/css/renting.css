@@ -3,15 +3,16 @@
     flex-direction: column;
     align-items: center;
     margin-top: 50px;
+    font-family: 'YourFont', sans-serif; /* Change to your desired font */
 }
 
-.rent-page h1 {
+.rent-page h1, .rent-page h2 {
     font-size: 2rem;
     margin-bottom: 20px;
 }
 
 .rent-page img {
-    max-width: 100%;
+    max-width: 50%; /* Adjust image size */
     height: auto;
     margin-bottom: 30px;
 }
