@@ -1,3 +1,23 @@
+# Build Stage
+FROM maven:latest AS build
+
+# Set the working directory inside the container
+WORKDIR /app
+
+# Copy the pom.xml and download dependencies (cache layer)
+COPY pom.xml /app/
+RUN mvn dependency:go-offline
+
+# Copy the rest of the application code
+COPY . /app/
+
+# Package the application without running tests
+RUN mvn clean package
+
+# Runtime Stage (smaller image)
+FROM openjdk:17-jdk-slim
+
+# Set environment variables for database connectivity
 ARG DB_USERNAME
 ARG DB_PASSWORD
 ARG DB_URL
@@ -6,20 +26,14 @@ ENV DB_USERNAME=${DB_USERNAME}
 ENV DB_PASSWORD=${DB_PASSWORD}
 ENV DB_URL=${DB_URL}
 
-# Use Maven image to build the application
-FROM maven:latest
-
-# Set working directory inside the container
+# Set the working directory for the runtime container
 WORKDIR /app
 
-# Copy the pom.xml to download dependencies first (caching optimization)
-COPY pom.xml /app/
+# Copy only the built JAR file from the build stage
+COPY --from=build /app/target/CarRentalWeb.jar /app/CarRentalWeb.jar
 
-# Copy the entire project to the container
-COPY . /app/
+# Expose the port your application is running on (adjust if necessary)
+EXPOSE 8080
 
-# Package the application using Maven
-RUN mvn clean package -DskipTests
-
-# Run the main class from the built JAR
-CMD ["java", "-jar", "target/CarRentalWeb.jar"]
+# Run the application
+CMD ["java", "-jar", "CarRentalWeb.jar"]
