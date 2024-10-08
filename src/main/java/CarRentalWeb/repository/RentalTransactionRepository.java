@@ -12,6 +12,5 @@ public interface RentalTransactionRepository extends JpaRepository<RentalTransac
 
     List<RentalTransaction> findByUser(User user);
 
-    // Corrected method name to match the property in Vehicle entity
     List<RentalTransaction> findByVehicle_VehicleReg(String vehicleReg);
 }
