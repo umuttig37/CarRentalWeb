@@ -3,7 +3,7 @@
 body {
     margin: 0;
     padding: 0;
-    font-family: Montserrat;
+    font-family: Montserrat, sans-serif;
     font-size: 14px;
     background: #FEF9F9;
 }
@@ -11,131 +11,127 @@ body {
 .Profile {
     display: flex;
     flex-direction: row;
-    width: 100vw;
+    width: 100%;
+    height: 100vh; /* Set the height to fill the viewport */
     overflow: hidden;
 }
 
 .Profile .Left-side {
     background-color: black;
     width: 30%;
-    height: 99.8vh;
+    height: 100vh; /* Full height of the viewport */
     background-image: url(../images/Tesla.jpg);
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
+    overflow-y: auto; /* Vertical scrollbar if needed */
 }
+
+.Profile .Right-side {
+    flex: 1; /* Allow right side to fill remaining space */
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start; /* Align top */
+    align-items: center;
+    border-radius: 20px 0 0 20px;
+    background: #FEF9F9;
+    position: relative;
+    z-index: 2;
+    height: 100vh; /* Ensure the right side takes full height */
+    overflow-y: auto; /* Add vertical scrollbar if needed */
+}
+
 .Profile .Header {
     display: flex;
     justify-content: space-between;
     align-items: center;
     width: 100%;
-}
-.Profile .Header a {
-    width: 20%;
-    text-decoration: none;
-}
-
-.Profile .Right-side {
-    width: 65%;
-    height: 99.8vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    border-radius: 20px 0px 0px 20px;
-    background: #FEF9F9;
-    position: relative;
-    z-index: 2;
-    left: -5%;
+    padding: 20px; /* Add some padding */
 }
 
 #profileForm {
-    width: 50%;
-    height: 80%;
+    width: 100%; /* Set to 100% for scalability */
+    max-width: 600px; /* Limit max width */
+    height: auto;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     gap: 25px;
+    padding: 20px; /* Add padding for smaller screens */
 }
+
 #profileForm .input-container {
     position: relative;
     width: 100%;
 }
-#profileForm .input-container .fa-edit {
-    position: absolute;
-    left: 95%;
-    top: 50%;
-}
-#profileForm .input-container .fa-edit:hover {
-    cursor: pointer;
-}
-#profileForm .input-container i {
-    position: absolute;
-}
+
 #profileForm input {
     background-color: transparent;
     border: 0;
     border-bottom: 1.5px solid #C4C4C4;
-
     color: #5C5C5C;
-    font-family: Montserrat;
+    font-family: Montserrat, sans-serif;
     font-size: 14px;
     font-style: normal;
     font-weight: 400;
-    line-height: 136.5%;
+    line-height: 1.5;
     letter-spacing: 1.12px;
     width: 100%;
     height: 50px;
 }
 
-#profileForm input.disabled {
-    border-bottom: 1.5px solid red;
-}
-
 #profileForm button {
     display: flex;
-    padding: 18px 0px 19px 0px;
+    padding: 18px 0;
     justify-content: center;
     align-items: center;
     border-radius: 8px;
     background: #120A2F;
     width: 100%;
     color: #FFF;
-
-    font-family: Montserrat;
+    font-family: Montserrat, sans-serif;
     font-size: 16px;
-    font-style: normal;
     font-weight: 700;
-    line-height: 136.5%; /* 21.84px */
+    line-height: 1.5; /* Use line-height for better scaling */
     letter-spacing: 1.28px;
 }
 
-#profileForm button:hover {
-    cursor: pointer;
+/* Media Queries for Responsiveness */
+@media (max-width: 768px) {
+    .Profile {
+        flex-direction: column; /* Stack vertically on small screens */
+    }
+
+    .Profile .Left-side {
+        width: 100%; /* Full width on small screens */
+        height: 200px; /* Set a specific height for the image section */
+    }
+
+    .Profile .Right-side {
+        width: 100%; /* Full width on small screens */
+        border-radius: 0; /* Remove rounding */
+    }
+
+    #profileForm {
+        width: 90%; /* Adjust form width for small screens */
+    }
 }
 
-#profileForm .Logout-Section {
-    text-align: left;
-    width: 100%;
-}
+@media (max-width: 800px) {
+    .Profile .Left-side {
+        display: none; /* Hide left-side image on very small screens */
+    }
 
-#profileForm .Logout-Section a {
-    color: #3F3CEE;
-    text-decoration: none;
-}
+    #profileForm {
+        gap: 15px; /* Reduce gap for smaller screens */
+    }
 
-#profileForm h1 {
-    width: 100%;
-    text-align: left;
-}
+    #profileForm h1 {
+        font-size: 18px; /* Adjust heading size */
+    }
 
-#profileForm label {
-    display: block;
-    margin-bottom: 5px;
-    font-weight: bold;
-}
-.Home-click:hover {
-    cursor: pointer;
-    opacity: 80%;
+    #profileForm button {
+        padding: 15px 0; /* Adjust button padding */
+    }
 }
