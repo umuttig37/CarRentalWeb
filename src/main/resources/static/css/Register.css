@@ -3,7 +3,7 @@
 body {
     margin: 0;
     padding: 0;
-    font-family: Montserrat;
+    font-family: Montserrat, sans-serif;
     font-size: 14px;
     background: #FEF9F9;
 }
@@ -11,50 +11,51 @@ body {
 .Register {
     display: flex;
     flex-direction: row;
-    width: 100vw;
+    width: 100%;
+    height: 100vh; /* Set the height to fill the viewport */
     overflow: hidden;
 }
 
 .Register .Left-side {
     background-color: black;
     width: 30%;
-    height: 99.8vh;
+    height: 100vh; /* Full height of the viewport */
     background-image: url(../images/Tesla.jpg);
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
+    overflow-y: auto; /* Vertical scrollbar if needed */
 }
 
-
 .Register .Right-side {
-    width: 65%;
-    height: 99.8vh;
+    flex: 1; /* Allow right side to fill remaining space */
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start; /* Align top */
     align-items: center;
-    border-radius: 20px 0px 0px 20px;
+    border-radius: 20px 0 0 20px;
     background: #FEF9F9;
     position: relative;
     z-index: 2;
-    left: -5%;
-
-
+    height: 100vh; /* Ensure the right side takes full height */
+    overflow-y: auto; /* Add vertical scrollbar if needed */
 }
 
 #registerForm {
-    width: 50%;
-    height: 80%;
+    width: 100%; /* Set to 100% for scalability */
+    max-width: 600px; /* Limit max width */
+    height: auto;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    gap: 25px;
+    gap: 15px; /* Adjust gap to account for additional text */
+    padding: 20px; /* Add padding for smaller screens */
 }
 
 #registerForm .User-Agreement {
     text-align: center;
-    font-size: 1em;
+    font-size: 0.9em; /* Adjust font size for better readability */
     width: 75%;
 }
 
@@ -63,41 +64,34 @@ body {
     text-decoration: none;
 }
 
-
 #registerForm input {
     background-color: transparent;
     border: 0;
-    border-bottom: 1.5px solid #C4C4C4;;
-
+    border-bottom: 1.5px solid #C4C4C4;
     color: #5C5C5C;
-
-    font-family: Montserrat;
+    font-family: Montserrat, sans-serif;
     font-size: 14px;
     font-style: normal;
     font-weight: 400;
-    line-height: 136.5%;
+    line-height: 1.5;
     letter-spacing: 1.12px;
     width: 100%;
-
     height: 50px;
 }
 
 #registerForm button {
     display: flex;
-    padding: 18px 0px 19px 0px;
+    padding: 18px 0;
     justify-content: center;
     align-items: center;
     border-radius: 8px;
     background: #120A2F;
     width: 100%;
-
     color: #FFF;
-
-    font-family: Montserrat;
+    font-family: Montserrat, sans-serif;
     font-size: 16px;
-    font-style: normal;
     font-weight: 700;
-    line-height: 136.5%; /* 21.84px */
+    line-height: 1.5; /* Use line-height for better scaling */
     letter-spacing: 1.28px;
 }
 
@@ -108,6 +102,7 @@ body {
 #registerForm .Already-Account {
     text-align: left;
     width: 100%;
+    font-size: 0.9em; /* Slightly smaller font size */
 }
 
 #registerForm .Already-Account a {
@@ -118,4 +113,59 @@ body {
 #registerForm h1 {
     width: 100%;
     text-align: left;
+    font-size: 24px; /* Adjust heading size for better prominence */
+    margin-bottom: 10px; /* Add space below the heading */
+}
+
+/* Media Queries for Responsiveness */
+@media (max-width: 768px) {
+    .Register {
+        flex-direction: column; /* Stack vertically on small screens */
+    }
+
+    .Register .Left-side {
+        width: 100%; /* Full width on small screens */
+        height: 200px; /* Set a specific height for the image section */
+    }
+
+    .Register .Right-side {
+        width: 100%; /* Full width on small screens */
+        border-radius: 0; /* Remove rounding */
+    }
+
+    #registerForm {
+        width: 90%; /* Adjust form width for small screens */
+    }
+}
+
+@media (min-width: 1200px) {
+    .Register .Right-side {
+        position: relative;
+        justify-content: center;
+        left: -100px;
+    }
+}
+
+@media (max-width: 1000px) {
+    .Register .Right-side {
+        margin: 0 20px;
+    }
+}
+
+@media (max-width: 800px) {
+    .Register .Left-side {
+        display: none; /* Hide left-side image on very small screens */
+    }
+
+    #registerForm {
+        gap: 10px; /* Reduce gap for smaller screens */
+    }
+
+    #registerForm h1 {
+        font-size: 20px; /* Adjust heading size */
+    }
+
+    #registerForm button {
+        padding: 15px 0; /* Adjust button padding */
+    }
 }
