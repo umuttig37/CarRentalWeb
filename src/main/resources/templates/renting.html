@@ -8,25 +8,31 @@
 </head>
 <body>
 <div class="rent-page">
-    <h1>Rent <span id="car-name"></span></h1>
-    <h1>Price per day: <span id="car-price"></span></h1>
-    <h1>Total Price: <span id="calculated-price"></span></h1> <!-- This is the missing element -->
-    <img id="car-image" src="" alt="Car Image">
-
-    <form id="rental-form">
-        <!-- Form elements... -->
-        <div class="form-group">
-            <label for="pickup-date">Pickup Date:</label>
-            <input type="date" id="pickup-date" required>
+    <div class="Left-side">
+        <img id="left-side-image" alt="">
+    </div>
+    <div class="Right-side">
+        <div class="Flex">
+            <div class="Details">
+                <h1>Rent <span id="car-name">Tesla Model S</span></h1>
+                <h1>Price per day: <span id="car-price">$100</span></h1>
+                <h1>Total Price: <span id="calculated-price">$0</span></h1>
+            </div>
         </div>
+        <form id="rental-form">
+            <div class="form-group">
+                <label for="pickup-date">Pickup Date:</label>
+                <input type="date" id="pickup-date" required>
+            </div>
 
-        <div class="form-group">
-            <label for="dropoff-date">Drop-off Date:</label>
-            <input type="date" id="dropoff-date" required>
-        </div>
+            <div class="form-group">
+                <label for="dropoff-date">Drop-off Date:</label>
+                <input type="date" id="dropoff-date" required>
+            </div>
 
-        <button type="submit">Confirm Rental</button>
-    </form>
+            <button id="Rent-button" type="submit">Confirm Rental</button>
+        </form>
+    </div>
 </div>
 
 <script src="/js/Car-details.js"></script>

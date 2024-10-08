@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rentals</title>
+    <link rel="stylesheet" href="../css/Rentals.css">
+    <link rel="stylesheet" href="../css/rental.css">
+</head>
+<body>
+<div class="Rentals">
+    <div class="Page">
+        <div class="Header">
+            <h1>Rentals</h1>
+            <a href="/profile">View profile</a>
+        </div>
+
+        <div class="rental-list-container">
+            <h2>Your rentals</h2>
+            <ul id="rentalList" class="rental-list">
+
+            </ul>
+        </div>
+
+    </div>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const token = localStorage.getItem('token');
+        if (!token) {
+            window.location.href = '/login';
+            return;
+        }
+
+        const carList = document.getElementById('rentalList');
+
+        async function getRentals() {
+            try {
+                const response = await fetch('/api/rentals', {
+                    method: 'GET',
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                        'Content-Type': 'application/json'
+                    }
+                });
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                const cars = await response.json();
+                console.log(cars)
+
+                // Populate the list with car data
+                if (cars.length === 0) {
+                    carList.innerHTML = '<p>You have no rentals yet.</p>';
+                    return;
+                }
+                cars.forEach(car => {
+                    const li = document.createElement('li');
+                    li.innerHTML = `
+                        <div class="featured-car-card">
+                            <figure class="card-banner">
+                                <img src="${car.image}" alt="${car.vehicleTitle}" loading="lazy" width="440" height="300" class="w-100">
+                            </figure>
+                            <div class="card-content">
+                                <div class="card-title-wrapper">
+                                    <h3 class="h3 card-title">
+                                        <a href="#">${car.vehicleTitle}</a>
+                                    </h3>
+                                    <data class="reg" value="${car.vehicleReg}">${car.vehicleReg}</data>
+                                </div>
+                                <li>Start date: ${car.rentalStartDate}</li>
+                                <li>End date: ${car.rentalEndDate}</li>
+                                </ul>
+                            </div>
+                        </div>
+                    `;
+                    carList.appendChild(li);
+                });
+            } catch (error) {
+                console.error('There was a problem fetching the car data:', error);
+                carList.innerHTML = '<p>Sorry, we couldn’t load the car data. Please try again later.</p>';
+            }
+        }
+
+        getRentals();
+    });
+</script>
+
+</body>
+</html>

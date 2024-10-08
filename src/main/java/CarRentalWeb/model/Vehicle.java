@@ -15,9 +15,7 @@ public class Vehicle {
     private String vehicleFuel;
     private String vehicleConsumption;
     private String vehicleTransmission;
-
     private double vehiclePrice;
-
     private boolean vehicleAvailable;
     private String image;
 
@@ -102,6 +100,10 @@ public class Vehicle {
 
     public void setImage(String image) {
         this.image = image;
+    }
+
+    public boolean isVehicleAvailable() {
+        return vehicleAvailable;
     }
 }
 

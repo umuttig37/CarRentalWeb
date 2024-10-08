@@ -1,0 +1,104 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Montserrat;
+    font-size: 14px;
+    background: #FEF9F9;
+}
+
+.Rentals {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    background-color: white;
+    height: 100%;
+}
+.Rentals .Header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.Rentals .Header a {
+    width: 20%;
+    text-decoration: none;
+    text-align: center;
+}
+
+.Rentals .Page {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 20px 0px 0px 20px;
+    background: #FEF9F9;
+    z-index: 2;
+    padding: 2.5%;
+}
+.Rentals .rental-list-container {
+    width: 75%;
+    text-align: left;
+}
+.Rentals .rental-list {
+    display: flex;
+    flex-wrap: wrap; /* Allow items to wrap to new rows */
+    justify-content: space-between;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+}
+
+.Rentals .rental-list li {
+    width: 48%; /* Set width to fit 2 items per row */
+    padding: 10px;
+    border-bottom: none;
+    box-sizing: border-box; /* Ensure padding doesn't affect width */
+}
+.featured-car-card .card-content li {
+    width: 100%;
+}
+.rental-list-container {
+    width: 50%;
+    text-align: left;
+}
+
+.rental-list-container h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.rental-list-container ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.rental-list-container ul li {
+    font-size: 18px;
+    padding: 10px 0;
+    border-bottom: 1px solid #ddd;
+}
+
+.Home-click:hover {
+    cursor: pointer;
+    opacity: 80%;
+}
+@media screen and (max-width: 800px) {
+    .Rentals .rental-list li {
+        width: 100%;
+    }
+    .Rentals .rental-list {
+        justify-content: center;
+    }
+    .Rentals .rental-list-container {
+        width: 100%;
+    }
+    .Rentals .Page {
+        padding: 5%;
+    }
+
+}

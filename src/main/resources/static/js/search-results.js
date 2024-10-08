@@ -41,7 +41,7 @@ document.addEventListener('DOMContentLoaded', async function () {
                                     <li class="card-list-item"><ion-icon name="hardware-chip-outline"></ion-icon><span class="card-item-text">${car.vehicleTransmission}</span></li>
                                 </ul>
                                 <div class="card-price-wrapper">
-                                    <p class="card-price"><strong>${car.vehiclePrice}€</strong> / month</p>
+                                    <p class="card-price"><strong>${car.vehiclePrice}€</strong> / day</p>
                                     <a href="renting?carReg=${car.vehicleReg}" class="btn">Rent now</a>
                                 </div>
                             </div>

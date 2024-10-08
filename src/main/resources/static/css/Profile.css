@@ -24,6 +24,16 @@ body {
     background-position: center;
     background-repeat: no-repeat;
 }
+.Profile .Header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+.Profile .Header a {
+    width: 20%;
+    text-decoration: none;
+}
 
 .Profile .Right-side {
     width: 65%;

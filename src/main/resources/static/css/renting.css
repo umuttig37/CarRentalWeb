@@ -1,57 +1,135 @@
-.rent-page {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-top: 50px;
-    font-family: 'YourFont', sans-serif; /* Change to your desired font */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Montserrat;
+    font-size: 14px;
+    background: #FEF9F9;
 }
 
-.rent-page h1, .rent-page h2 {
-    font-size: 2rem;
-    margin-bottom: 20px;
+.rent-page {
+    display: flex;
+    flex-direction: row;
+    width: 100vw;
+    overflow: hidden;
+}
+
+.rent-page .Flex {
+    display: flex;
+    flex-direction: row;
+    padding: 2% 5%;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+
+}
+.rent-page .Flex .Details {
+    display: flex;
+    flex-direction: row;
+}
+
+.rent-page .Details {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+    justify-content: center;
+}
+
+.rent-page .Details h1 {
+    color: #333;
+    font-size: 24px;
+    margin: 0;
+    font-weight: bold;
+}
+
+.rent-page .Details span {
+    color: #5C5C5C;
 }
 
 .rent-page img {
-    max-width: 50%; /* Adjust image size */
+    width: 40%;
     height: auto;
-    margin-bottom: 30px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-form {
+form#rental-form {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 25px;
+}
+
+form#rental-form .form-group {
     width: 100%;
-    max-width: 600px;
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
 }
 
-.form-group {
-    display: flex;
-    flex-direction: column;
-}
-
-.form-group label {
-    font-weight: bold;
+form#rental-form label {
+    display: block;
     margin-bottom: 5px;
+    font-weight: bold;
+    color: #333;
 }
 
-input {
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    font-size: 1rem;
+form#rental-form input[type="date"] {
+    width: 95%;
+    padding: 2.5%;
+    border: 1.5px solid #C4C4C4;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    color: #333;
+    font-family: Montserrat;
+
 }
 
-button {
-    padding: 10px;
-    background-color: #007bff;
+#Rent-button {
+    padding: 15px 0;
+    background: #120A2F;
+    color: #FFF;
+    width: 100%;
+    border-radius: 8px;
+    text-align: center;
+    font-size: 16px;
+    font-weight: bold;
     border: none;
-    border-radius: 5px;
-    color: white;
-    font-size: 1.2rem;
-    cursor: pointer;
 }
 
-button:hover {
-    background-color: #0056b3;
+#Rent-button:hover {
+    cursor: pointer;
+    background-color: #3F3CEE;
+}
+
+.rent-page .Left-side {
+    background-color: black;
+    width: 30%;
+    height: 99.8vh;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.rent-page .Right-side {
+    width: 65%;
+    height: 99.8vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: #FEF9F9;
+    position: relative;
+    z-index: 2;
+    left: -5%;
+}
+@media screen and (max-width: 1200px) {
+    form#rental-form {
+        width: 80%;
+    }
+    .rent-page .Details {
+        width: 80%;
+    }
+
 }
