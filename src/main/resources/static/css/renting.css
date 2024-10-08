@@ -110,6 +110,7 @@ form#rental-form input[type="date"] {
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
+    background-image: url(../images/Tesla.jpg);
 }
 
 .rent-page .Right-side {

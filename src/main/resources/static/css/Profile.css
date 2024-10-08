@@ -117,7 +117,18 @@ body {
         width: 90%; /* Adjust form width for small screens */
     }
 }
-
+@media (min-width: 1200px) {
+    .Profile .Right-side {
+        position: relative;
+        justify-content: center;
+        left: -100px;
+    }
+}
+@media (max-width: 1000px) {
+    .Profile .Right-side {
+        margin: 0 20px;
+    }
+}
 @media (max-width: 800px) {
     .Profile .Left-side {
         display: none; /* Hide left-side image on very small screens */
@@ -135,3 +146,4 @@ body {
         padding: 15px 0; /* Adjust button padding */
     }
 }
+

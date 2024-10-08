@@ -19,7 +19,7 @@ document.addEventListener('DOMContentLoaded', async function () {
             if (car) {
                 // Update the page with the car details
                 document.getElementById('car-name').textContent = car.vehicleTitle;
-                document.getElementById('car-price').textContent = car.vehiclePrice;
+                document.getElementById('car-price').textContent = car.vehiclePrice + '€';
 
                 const leftSideElement = document.querySelector('.Left-side');
                 if (leftSideElement) {
@@ -44,11 +44,11 @@ document.addEventListener('DOMContentLoaded', async function () {
                         const totalPrice = daysDiff * car.vehiclePrice;
 
                         if (calculatedPriceElement) {
-                            calculatedPriceElement.textContent = totalPrice;
+                            calculatedPriceElement.textContent = totalPrice + '€';
                         }
                     } else {
                         if (calculatedPriceElement) {
-                            calculatedPriceElement.textContent = car.vehiclePrice;
+                            calculatedPriceElement.textContent = car.vehiclePrice + '€';
                         }
                     }
                 }
