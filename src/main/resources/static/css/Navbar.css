@@ -1,3 +1,44 @@
+@media (max-width: 768px) {
+    .transparent-header .container {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .transparent-header .navbar {
+        margin-top: 10px;
+        text-align: left;
+    }
+
+    .transparent-header .nav-menu {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .transparent-header .nav-menu li {
+        margin: 10px 0;
+    }
+
+    .transparent-header .logo img {
+        width: 80px;
+        height: auto;
+        flex-shrink: 0;
+        min-width: 10px;
+    }
+
+    .transparent-header .user-icon {
+        margin-left: auto;
+        margin-top: 10px;
+    }
+
+    .transparent-header .user-icon svg {
+        width: 24px;
+        height: 24px;
+    }
+}
+
+
+
+
 .transparent-header {
     position: fixed;
     width: 100%;
