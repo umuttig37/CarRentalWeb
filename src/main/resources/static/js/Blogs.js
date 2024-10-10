@@ -15,14 +15,14 @@ const blogs = [
     },
     {
         image: "../images/car-find.jpg",
-        title: "Which car will suit you the most?",
+        title: "All luxury cars, from us!",
         date: "20 September, 2024",
         comments: 114,
         link: "#"
     },
     {
         image: "../images/Ferrari-Engine.jpg",
-        title: "How an engine works?",
+        title: "Contact us to find out which car will suit you the most!",
         date: "20. September, 2024",
         comments: 114,
         link: "#"
