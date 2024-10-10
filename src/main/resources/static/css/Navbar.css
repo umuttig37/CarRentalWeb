@@ -1,6 +1,5 @@
 @media (max-width: 768px) {
     .transparent-header .container {
-        flex-direction: column;
         align-items: flex-start;
     }
 
@@ -128,24 +127,10 @@
     cursor: pointer;
     scale: 1.1;
 }
-/* Media query for responsiveness */
-@media (max-width: 768px) {
-    .transparent-header .container {
-        flex-direction: column;
-        align-items: flex-start;
-    }
 
-    .transparent-header .navbar {
-        margin-top: 10px;
-        text-align: left;
-    }
 
-    .transparent-header .nav-menu {
-        flex-direction: column;
-        width: 100%;
-    }
-
-    .transparent-header .nav-menu li {
-        margin: 10px 0;
+@media screen and (max-width: 1000px) {
+    .transparent-header {
+        padding: 0px;
     }
 }

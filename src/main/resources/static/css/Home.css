@@ -188,3 +188,41 @@ body {
     opacity: 80%;
     cursor: pointer;
 }
+
+@media screen and (max-width: 1000px) {
+    .Steps {
+        flex-direction: column;
+        gap: 20px;
+    }
+}
+@media screen and (max-width: 850px) {
+    .Top-section h1 {
+        font-size: 20px;
+    }
+    .Top-section p {
+        font-size: 14px;
+    }
+}
+@media screen and (max-width: 650px) {
+    .Top-section .Right-side {
+        display: none;
+    }
+    .bottom-section {
+        margin: 2em;
+    }
+    .Text-section h4 {
+        font-size: 16px;
+    }
+    .Text-section p {
+        font-size: 14px;
+    }
+    .Text-section {
+        padding: 10%;
+        width: 80%;
+    }
+}
+@media screen and (max-width: 500px) {
+    .bottom-section {
+        margin: 1em;
+    }
+}
