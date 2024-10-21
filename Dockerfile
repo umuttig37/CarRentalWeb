@@ -6,7 +6,6 @@ WORKDIR /app
 
 # Copy the pom.xml and download dependencies (cache layer)
 COPY pom.xml /app/
-RUN mvn dependency
 
 # Copy the rest of the application code
 COPY . /app/
