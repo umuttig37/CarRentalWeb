@@ -11,7 +11,7 @@ COPY pom.xml /app/
 COPY . /app/
 
 # Package the application without running tests
-RUN mvn clean package --debug
+RUN mvn clean package -X
 
 # Runtime Stage (smaller image)
 FROM openjdk:17-jdk-slim
