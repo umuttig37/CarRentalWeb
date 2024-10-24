@@ -11,7 +11,7 @@ import java.util.Map;
 
 @Component
 public class JwtUtil {
-    private static String secret = "your_jwt_secret"; // Change this to a stronger secret
+    private static String secret = "your_jwt_secret";
     private static long expiration = 604800000L; // 7 days in milliseconds
 
     // Generate token for user
