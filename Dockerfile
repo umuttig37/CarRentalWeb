@@ -6,13 +6,12 @@ WORKDIR /app
 
 # Copy the pom.xml and download dependencies (cache layer)
 COPY pom.xml /app/
-RUN mvn dependency:go-offline
 
 # Copy the rest of the application code
 COPY . /app/
 
 # Package the application without running tests
-RUN mvn clean package -DskipTests
+RUN mvn clean package -X
 
 # Runtime Stage (smaller image)
 FROM openjdk:17-jdk-slim
