@@ -13,7 +13,7 @@
     </div>
     <div class="Right-side">
         <form id="loginForm">
-            <h1>Welcome back!</h1>
+            <h1 id="welcomeText">Welcome back!</h1>
             <input type="text" id="username" name="username" placeholder="Username" required>
             <input type="password" id="password" name="password" placeholder="Password" required>
 
@@ -26,12 +26,49 @@
                 <a href="/">Back to home</a>
             </p>
         </form>
-        <p id="errorMessage" style="color: red; display: none;"></p> <!-- For displaying error messages -->
+        <p id="errorMessage" style="color: red; display: none;"></p>
     </div>
 </div>
 
 <script>
-    localStorage.getItem('token') && window.location.replace('/profile');
+    async function fetchTranslations(languageCode, countryCode, page) {
+        try {
+            const response = await fetch(`/api/localization/messages?lang=${languageCode}&country=${countryCode}&page=${page}`);
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return await response.json();
+        } catch (error) {
+            console.error('Failed to fetch translations:', error);
+            return null;
+        }
+    }
+
+    // Function to fetch translations and update the UI
+    async function loadTranslations() {
+        const languageCode = localStorage.getItem('selectedLanguageCode') || 'en';
+        const countryCode = localStorage.getItem('selectedCountryCode') || 'UK';
+        const page = 'login';
+
+        const translations = await fetchTranslations(languageCode, countryCode, page);
+        console.log(translations);
+
+        if (translations) {
+            document.getElementById('welcomeText').innerText = translations['login.welcome.message'] || 'Welcome back!';
+            document.querySelector('input#username').placeholder = translations['login.username.placeholder'] || 'Username';
+            document.querySelector('input#password').placeholder = translations['login.password.placeholder'] || 'Password';
+            document.querySelector('button[type="submit"]').innerText = translations['login.button'] || 'Login';
+            document.querySelector('.No-Account a[href="register"]').innerText = translations['login.create.one'] || 'Create one';
+            document.querySelector('.No-Account a[href="/"]').innerText = translations['login.back.to.home'] || 'Back to home';
+        }
+    }
+
+    loadTranslations();
+
+    if (localStorage.getItem('token')) {
+        window.location.replace('/profile');
+    }
+
     document.getElementById('loginForm').addEventListener('submit', async (e) => {
         e.preventDefault();
         const username = document.getElementById('username').value;
@@ -53,10 +90,10 @@
                 window.location.href = '/';
             } else {
                 const errorText = await response.text(); // Get error message
-                showErrorMessage(errorText || 'Invalid credentials');
+                showErrorMessage(errorText || translations['login.error'] || 'Invalid credentials');
             }
         } catch (error) {
-            showErrorMessage('An unexpected error occurred. Please try again.');
+            showErrorMessage(translations['login.error.unexpected'] || 'An unexpected error occurred. Please try again.');
         }
     });
 

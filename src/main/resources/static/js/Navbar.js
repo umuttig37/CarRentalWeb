@@ -28,23 +28,23 @@ function createNavbar() {
                         <img src="../Languages/UK-Flag.png" class="flag-icon">
                     </button>
                     <ul class="dropdown-content">
-                        <li data-value="en" data-flag="../Languages/UK-Flag.png">
+                        <li data-countrycode="UK" data-languagecode="en" data-flag="../Languages/UK-Flag.png">
                             <img src="../Languages/UK-Flag.png" alt="English" class="flag-icon">
                             <span>English</span>
                         </li>
-                        <li data-value="fi" data-flag="../Languages/Finland-Flag.png">
+                        <li data-countrycode="FI" data-languagecode="fi" data-flag="../Languages/Finland-Flag.png">
                             <img src="../Languages/Finland-Flag.png" alt="Finnish" class="flag-icon">
                             <span>Finnish</span>
                         </li>
-                        <li data-value="fr" data-flag="../Languages/France-Flag.png">
+                        <li data-countrycode="FR" data-languagecode="fr" data-flag="../Languages/France-Flag.png">
                             <img src="../Languages/France-Flag.png" alt="French" class="flag-icon">
                             <span>French</span>
                         </li>
-                        <li data-value="ja" data-flag="../Languages/Japan-Flag.png">
+                        <li data-countrycode="JP" data-languagecode="ja" data-flag="../Languages/Japan-Flag.png">
                             <img src="../Languages/Japan-Flag.png" alt="Japanese" class="flag-icon">
                             <span>Japanese</span>
                         </li>
-                        <li data-value="zh" data-flag="../Languages/ChinaFlag.png">
+                        <li data-countrycode="CN" data-languagecode="zh"" data-flag="../Languages/ChinaFlag.png">
                             <img src="../Languages/ChinaFlag.png" alt="Chinese" class="flag-icon">
                             <span>Chinese</span>
                         </li>
@@ -55,7 +55,6 @@ function createNavbar() {
     `;
 
     document.body.prepend(navbar);
-
 
     const profileIcon = document.getElementById('profileIcon');
     profileIcon.addEventListener('click', () => {
@@ -68,9 +67,9 @@ function createNavbar() {
     });
 
     // Retrieve saved flag and country code from localStorage
-    const savedFlag = localStorage.getItem('selectedFlag') || '../Languages/UK-Flag.png'; // Default to UK flag
-    const savedCountryCode = localStorage.getItem('selectedCountryCode') || 'en'; // Default to English
-
+    const savedFlag = localStorage.getItem('selectedFlag') || '../Languages/UK-Flag.png';
+    const savedCountryCode = localStorage.getItem('selectedCountryCode') || 'en'
+    const savedLanguageCode = localStorage.getItem('selectedLanguageCode') || 'UK';
     // Set the default flag and language in the dropdown button
     const dropdownButton = document.querySelector('.dropdown-button');
     dropdownButton.innerHTML = `<img src="${savedFlag}" class="flag-icon">`;
@@ -78,7 +77,7 @@ function createNavbar() {
     const dropdownContent = document.querySelector('.dropdown-content');
 
     dropdownButton.addEventListener('click', () => {
-        dropdownContent.classList.toggle('show'); // Toggle show class on click
+        dropdownContent.classList.toggle('show');
     });
 
     const dropdownItems = document.querySelectorAll('.dropdown-content li');
@@ -86,15 +85,16 @@ function createNavbar() {
         item.addEventListener('click', () => {
             const selectedFlag = item.querySelector('img').src;
             const selectedLanguage = item.querySelector('span').textContent;
-            const selectedCountryCode = item.getAttribute('data-value');
+            const selectedLanguageCode = item.getAttribute('data-languagecode');
+            const selectedCountryCode = item.getAttribute('data-countrycode');
 
-            // Update button content with selected option
             dropdownButton.innerHTML = `<img src="${selectedFlag}" class="flag-icon">`;
 
-            // Save the selected flag and country code to localStorage
             localStorage.setItem('selectedFlag', selectedFlag);
             localStorage.setItem('selectedCountryCode', selectedCountryCode);
+            localStorage.setItem('selectedLanguageCode', selectedLanguageCode);
             dropdownContent.classList.remove('show');
+            window.location.reload();
         });
     });
 

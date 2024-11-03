@@ -3,9 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Car Rental Home</title>
+    <title id="pageTitle">Car Rental Home</title>
     <link rel="stylesheet" type="text/css" href="/css/Home.css">
     <link rel="icon" type="image/x-icon" href="/static/Images/favicon.ico">
+    <script src="/js/Navbar.js" defer></script>
 </head>
 <body>
 <!-- Navbar will be inserted here by navbar.js -->
@@ -15,10 +16,10 @@
 <section class="bottom-section">
     <section class="Three-simple-steps">
         <section class="Top-section">
-            <h1>Three simple steps to rent a car</h1>
-            <Section class="Right-side">
+            <h1 id="threeStepsTitle">Three simple steps to rent a car</h1>
+            <section class="Right-side">
                 <a href="/rental" style="text-decoration: none; color: inherit;">
-                    <p>View rental options</p>
+                    <p id="viewRentalOptions">View rental options</p>
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
                         <g clip-path="url(#clip0_78_505)">
                             <path d="M20.01 13H8V15H20.01V18L24 14L20.01 10V13Z" fill="black"/>
@@ -30,42 +31,80 @@
                         </defs>
                     </svg>
                 </a>
-            </Section>
+            </section>
         </section>
 
         <div class="Steps">
             <div class="Step">
                 <img src="../images/Tesla.png" alt="Step 1">
-                <Section class="Text-section">
-                    <h4>Search vehicles</h4>
-                    <p>Explore availabe vehicles</p>
-                </Section>
-            </div>
-            <div class="Step">
-                <img src="../images/Tesla.png" alt="Step 1">
                 <section class="Text-section">
-                    <h4>Filter-vehicles</h4>
-                    <p>Refine vehicle selection</p>
+                    <h4 id="searchVehiclesTitle">Search vehicles</h4>
+                    <p id="exploreVehiclesDesc">Explore available vehicles</p>
                 </section>
             </div>
             <div class="Step">
-                <img src="../images/Tesla.png" alt="Step 1">
+                <img src="../images/Tesla.png" alt="Step 2">
                 <section class="Text-section">
-                    <h4>Rent a car</h4>
-                    <p>Start your car rental</p>
+                    <h4 id="filterVehiclesTitle">Filter vehicles</h4>
+                    <p id="refineSelectionDesc">Refine vehicle selection</p>
+                </section>
+            </div>
+            <div class="Step">
+                <img src="../images/Tesla.png" alt="Step 3">
+                <section class="Text-section">
+                    <h4 id="rentCarTitle">Rent a car</h4>
+                    <p id="startRentalDesc">Start your car rental</p>
                 </section>
             </div>
         </div>
     </section>
     <section class="Join-now">
         <button onclick="window.location.href='/register';">
-            <p>Join now!</p>
+            <p id="joinNowText">Join now!</p>
         </button>
     </section>
 </section>
 
-<!-- Import the navbar.js file -->
-<script src="/js/Navbar.js"></script>
+<script>
+    // Fetch translations for the home page
+    async function fetchTranslations(languageCode, countryCode, page) {
+        try {
+            const response = await fetch(`/api/localization/messages?lang=${languageCode}&country=${countryCode}&page=${page}`);
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            console.log(response);
+            return await response.json();
+        } catch (error) {
+            console.error('Failed to fetch translations:', error);
+            return null;
+        }
+    }
+
+    // Function to load translations
+    async function loadTranslations() {
+        const languageCode = localStorage.getItem('selectedLanguageCode') || 'en';
+        const countryCode = localStorage.getItem('selectedCountryCode') || 'UK';
+        const page = 'home'; // Specify the page identifier for fetching translations
+
+        const translations = await fetchTranslations(languageCode, countryCode, page);
+        console.log(translations);
+        if (translations) {
+            document.getElementById('pageTitle').innerText = translations['home.page.title'] || 'Car Rental Home';
+            document.getElementById('threeStepsTitle').innerText = translations['home.section.title'] || 'Three simple steps to rent a car';
+            document.getElementById('viewRentalOptions').innerText = translations['home.rental.options'] || 'View rental options';
+            document.getElementById('searchVehiclesTitle').innerText = translations['home.step1.title'] || 'Search vehicles';
+            document.getElementById('exploreVehiclesDesc').innerText = translations['home.step1.desc'] || 'Explore available vehicles';
+            document.getElementById('filterVehiclesTitle').innerText = translations['home.step2.title'] || 'Filter vehicles';
+            document.getElementById('refineSelectionDesc').innerText = translations['home.step2.desc'] || 'Refine vehicle selection';
+            document.getElementById('rentCarTitle').innerText = translations['home.step3.title'] || 'Rent a car';
+            document.getElementById('startRentalDesc').innerText = translations['home.step3.desc'] || 'Start your car rental';
+            document.getElementById('joinNowText').innerText = translations['home.join.now'] || 'Join now!';
+        }
+    }
+
+    loadTranslations();
+</script>
 
 </body>
 </html>
