@@ -8,8 +8,12 @@ document.addEventListener('DOMContentLoaded', async function () {
             throw new Error('Network response was not ok');
         }
         const cars = await response.json();
-        let carID = 0;
-        // Populate the list with car data
+
+        // Fetch translations for the selected language
+        const languageCode = localStorage.getItem('selectedLanguageCode') || 'en';
+        const countryCode = localStorage.getItem('selectedCountryCode') || 'UK';
+        const page = 'car';
+        const translations = await fetchTranslations(languageCode, countryCode, page);
         cars.forEach(car => {
             const li = document.createElement('li');
             li.innerHTML = `
@@ -27,24 +31,24 @@ document.addEventListener('DOMContentLoaded', async function () {
                         <ul class="card-list">
                             <li class="card-list-item">
                                 <ion-icon name="people-outline"></ion-icon>
-                                <span class="card-item-text">${car.vehiclePeople} People</span>
+                                <span class="card-item-text">${car.vehiclePeople} ${translations['car.people']}</span>
                             </li>
                             <li class="card-list-item">
                                 <ion-icon name="flash-outline"></ion-icon>
-                                <span class="card-item-text">${car.vehicleFuel}</span>
+                                <span class="card-item-text">${car.vehicleFuel} ${translations['car.fuel']}</span>
                             </li>
                             <li class="card-list-item">
                                 <ion-icon name="speedometer-outline"></ion-icon>
-                                <span class="card-item-text">${car.vehicleConsumption}</span>
+                                <span class="card-item-text">${car.vehicleConsumption} ${translations['car.consumption']}</span>
                             </li>
                             <li class="card-list-item">
                                 <ion-icon name="hardware-chip-outline"></ion-icon>
-                                <span class="card-item-text">${car.vehicleTransmission}</span>
+                                <span class="card-item-text">${car.vehicleTransmission} ${translations['car.transmission']}</span>
                             </li>
                         </ul>
                         <div class="card-price-wrapper">
-                            <p class="card-price"><strong>${car.vehiclePrice}€</strong> / day</p>
-                            <a href="renting?carReg=${car.vehicleReg}" class="rent-now-btn">Rent Now</a> 
+                            <p class="card-price"><strong>${car.vehiclePrice}€</strong> ${translations['car.price']}</p>
+                            <a href="renting?carReg=${car.vehicleReg}" class="rent-now-btn">${translations['car.rent.now']}</a>
                         </div>
                     </div>
                 </div>
@@ -53,8 +57,19 @@ document.addEventListener('DOMContentLoaded', async function () {
         });
     } catch (error) {
         console.error('There was a problem fetching the car data:', error);
-        carList.innerHTML = '<p>Sorry, we couldn’t load the car data. Please try again later.</p>';
+        carList.innerHTML = `<p>${translations['car-list.error']}</p>`;
     }
 });
 
-//<button class="rent-now-btn" a href="renting.html?carId=1">Rent Now</button>
+// Function to fetch translations dynamically based on language code
+async function fetchTranslations(languageCode, countryCode, page) {
+    try {
+        const response = await fetch(`/api/localization/messages?lang=${languageCode}&country=${countryCode}&page=${page}`);
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        return await response.json();
+    } catch (error) {
+        console.error('Failed to fetch translations:', error);s
+    }
+}

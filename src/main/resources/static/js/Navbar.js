@@ -5,7 +5,7 @@ function loadCSS(filename) {
     document.head.appendChild(link);
 }
 
-function createNavbar() {
+function createNavbar(translations) {
     const navbar = document.createElement('nav');
     navbar.innerHTML = `
         <header class="transparent-header">
@@ -15,7 +15,7 @@ function createNavbar() {
                 </a>
                 <nav class="navbar">
                     <ul class="nav-menu">
-                        <li><a href="/rental">Rent a car</a></li>
+                        <li><a href="/rental" id="rentCarLink">${translations['navbar.rent.car'] || 'Rent a car'}</a></li>
                     </ul>
                 </nav>
                 <div class="user-icon" id="profileIcon">
@@ -44,7 +44,7 @@ function createNavbar() {
                             <img src="../Languages/Japan-Flag.png" alt="Japanese" class="flag-icon">
                             <span>Japanese</span>
                         </li>
-                        <li data-countrycode="CN" data-languagecode="zh"" data-flag="../Languages/ChinaFlag.png">
+                        <li data-countrycode="CN" data-languagecode="zh" data-flag="../Languages/ChinaFlag.png">
                             <img src="../Languages/ChinaFlag.png" alt="Chinese" class="flag-icon">
                             <span>Chinese</span>
                         </li>
@@ -68,7 +68,7 @@ function createNavbar() {
 
     // Retrieve saved flag and country code from localStorage
     const savedFlag = localStorage.getItem('selectedFlag') || '../Languages/UK-Flag.png';
-    const savedCountryCode = localStorage.getItem('selectedCountryCode') || 'en'
+    const savedCountryCode = localStorage.getItem('selectedCountryCode') || 'en';
     const savedLanguageCode = localStorage.getItem('selectedLanguageCode') || 'UK';
     // Set the default flag and language in the dropdown button
     const dropdownButton = document.querySelector('.dropdown-button');
@@ -105,7 +105,25 @@ function createNavbar() {
     });
 }
 
-document.addEventListener('DOMContentLoaded', () => {
+async function fetchTranslations(languageCode, countryCode, page) {
+    try {
+        const response = await fetch(`/api/localization/messages?lang=${languageCode}&country=${countryCode}&page=${page}`);
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        return await response.json();
+    } catch (error) {
+        console.error('Failed to fetch translations:', error);
+        return null;
+    }
+}
+
+document.addEventListener('DOMContentLoaded', async () => {
     loadCSS('./css/Navbar.css');
-    createNavbar();
+    const languageCode = localStorage.getItem('selectedLanguageCode') || 'en';
+    const countryCode = localStorage.getItem('selectedCountryCode') || 'UK';
+    const page = 'navbar';
+
+    const translations = await fetchTranslations(languageCode, countryCode, page);
+    createNavbar(translations || {});
 });

@@ -5,6 +5,10 @@ document.addEventListener('DOMContentLoaded', async function () {
         const { carModel, monthlyPay, year } = searchCriteria;
         const resultsList = document.getElementById('results-list');
 
+        const selectedLanguageCode = localStorage.getItem('selectedLanguageCode') || 'en';
+        const selectedCountryCode = localStorage.getItem('selectedCountryCode') || 'UK';
+        const page = 'search-results';
+        const translations = await fetchTranslations(selectedLanguageCode, selectedCountryCode, page);
         try {
             const response = await fetch('/api/vehicle');
             if (!response.ok) {
@@ -35,14 +39,14 @@ document.addEventListener('DOMContentLoaded', async function () {
                                     <data class="year" value="${car.vehicleYear}">${car.vehicleYear}</data>
                                 </div>
                                 <ul class="card-list">
-                                    <li class="card-list-item"><ion-icon name="people-outline"></ion-icon><span class="card-item-text">${car.vehiclePeople} People</span></li>
+                                    <li class="card-list-item"><ion-icon name="people-outline"></ion-icon><span class="card-item-text">${car.vehiclePeople} ${translations['search-results.people']}</span></li>
                                     <li class="card-list-item"><ion-icon name="flash-outline"></ion-icon><span class="card-item-text">${car.vehicleFuel}</span></li>
                                     <li class="card-list-item"><ion-icon name="speedometer-outline"></ion-icon><span class="card-item-text">${car.vehicleConsumption} L/100km</span></li>
                                     <li class="card-list-item"><ion-icon name="hardware-chip-outline"></ion-icon><span class="card-item-text">${car.vehicleTransmission}</span></li>
                                 </ul>
                                 <div class="card-price-wrapper">
-                                    <p class="card-price"><strong>${car.vehiclePrice}€</strong> / day</p>
-                                    <a href="renting?carReg=${car.vehicleReg}" class="btn">Rent now</a>
+                                    <p class="card-price"><strong>${car.vehiclePrice}€</strong> ${translations['search-results.price']}</p>
+                                    <a href="renting?carReg=${car.vehicleReg}" class="btn">${translations['search-results.rent.now']}</a>
                                 </div>
                             </div>
                         </div>
@@ -58,5 +62,15 @@ document.addEventListener('DOMContentLoaded', async function () {
             console.error('Error fetching cars:', error);
             resultsList.innerHTML = '<p>Sorry, we couldn’t load the car data. Please try again later.</p>';
         }
+    }});
+async function fetchTranslations(languageCode, countryCode, page) {
+    try {
+        const response = await fetch(`/api/localization/messages?lang=${languageCode}&country=${countryCode}&page=${page}`);
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        return await response.json();
+    } catch (error) {
+        console.error('Failed to fetch translations:', error);s
     }
-});
+}

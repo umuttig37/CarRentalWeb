@@ -1,4 +1,3 @@
-<!-- src/main/resources/templates/register.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,33 +12,75 @@
     </div>
     <div class="Right-side">
         <form id="registerForm">
-            <h1>Create Account</h1>
+            <h1 id="createAccountText">Create Account</h1>
             <input type="text" id="userName" name="userName" placeholder="Username" required>
             <input type="text" id="userLastname" name="userLastname" placeholder="Last Name" required>
             <input type="text" id="userFirstName" name="userFirstName" placeholder="First Name" required>
             <input type="password" id="userPassword" name="userPassword" placeholder="Password" required>
             <input type="email" id="userEmail" name="userEmail" placeholder="Email" required>
 
-            <p class="User-Agreement">
+            <p class="User-Agreement" id="userAgreementText">
                 By clicking Create Account, you agree to our
-                <a href="user-agreement-url" target="_blank">User Agreement</a>
+                <a href="user-agreement-url" target="_blank" id="userAgreementLink">User Agreement</a>
                 and
-                <a href="privacy-policy-url" target="_blank">Privacy Policy</a>.
+                <a href="privacy-policy-url" target="_blank" id="privacyPolicyLink">Privacy Policy</a>.
             </p>
 
-            <button type="submit">Create Account</button>
+            <button type="submit" id="createAccountButton">Create Account</button>
             <p class="Already-Account">
-                Already have an account?
-                <a href="login">Login</a>
+                <span id="alreadyHaveAccountText">Already have an account?</span>
+                <a href="login" id="loginLink">Login</a>
             </p>
             <p class="Already-Account">
-                <a href="/">Back to Home</a>
+                <a href="/" id="backToHomeLink">Back to Home</a>
             </p>
         </form>
     </div>
 </div>
+
 <script>
-    localStorage.getItem('token') && window.location.replace('/profile');
+    async function fetchTranslations(languageCode, countryCode, page) {
+        try {
+            const response = await fetch(`/api/localization/messages?lang=${languageCode}&country=${countryCode}&page=${page}`);
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return await response.json();
+        } catch (error) {
+            console.error('Failed to fetch translations:', error);
+            return null;
+        }
+    }
+
+    async function loadTranslations() {
+        const languageCode = localStorage.getItem('selectedLanguageCode') || 'en';
+        const countryCode = localStorage.getItem('selectedCountryCode') || 'UK';
+        const page = 'register';
+
+        const translations = await fetchTranslations(languageCode, countryCode, page);
+
+        if (translations) {
+            document.getElementById('createAccountText').innerText = translations['register.page.title'] || 'Create Account';
+            document.getElementById('userName').placeholder = translations['register.username.placeholder'] || 'Username';
+            document.getElementById('userLastname').placeholder = translations['register.lastname.placeholder'] || 'Last Name';
+            document.getElementById('userFirstName').placeholder = translations['register.firstname.placeholder'] || 'First Name';
+            document.getElementById('userPassword').placeholder = translations['register.password.placeholder'] || 'Password';
+            document.getElementById('userEmail').placeholder = translations['register.email.placeholder'] || 'Email';
+            document.getElementById('userAgreementLink').innerText = translations['register.user.agreement.link'] || 'User Agreement';
+            document.getElementById('privacyPolicyLink').innerText = translations['register.privacy.policy.link'] || 'Privacy Policy';
+            document.getElementById('createAccountButton').innerText = translations['register.button'] || 'Create Account';
+            document.getElementById('alreadyHaveAccountText').innerText = translations['register.already.have.account'] || 'Already have an account?';
+            document.getElementById('loginLink').innerText = translations['register.login.link'] || 'Login';
+            document.getElementById('backToHomeLink').innerText = translations['register.back.home'] || 'Back to Home';
+        }
+    }
+
+    loadTranslations();
+
+    if (localStorage.getItem('token')) {
+        window.location.replace('/profile');
+    }
+
     document.getElementById('registerForm').addEventListener('submit', async (e) => {
         e.preventDefault();
         const userName = document.getElementById('userName').value;
@@ -53,15 +94,15 @@
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({userName, userLastname, userFirstName, userPassword, userEmail})
+            body: JSON.stringify({ userName, userLastname, userFirstName, userPassword, userEmail })
         });
 
         if (response.ok) {
             const user = await response.json();
             window.location.href = '/login';
-            alert('Registration successful');
+            alert(translations['register.success'] || 'Registration successful');
         } else {
-            alert('Registration failed');
+            alert(translations['register.failed'] || 'Registration failed');
         }
     });
 </script>

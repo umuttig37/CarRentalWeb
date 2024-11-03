@@ -7,9 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>OTP1 - Amazing sports car experience!</title>
 
-
     <link rel="stylesheet" href="../css/rental.css">
-
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -22,19 +20,17 @@
 <main>
     <article>
 
-
         <section class="section hero" id="home">
             <div class="container">
-
                 <div class="hero-content">
-                    <h2 class="h1 hero-title">have an amazing experience with our supercars!</h2>
+                    <h2 class="h1 hero-title">Have an amazing experience with our supercars!</h2>
                 </div>
 
                 <form action="" class="hero-form" id="searchForm">
                     <div class="input-wrapper">
                         <label for="input-1" class="input-label">Car, model, or brand</label>
                         <input type="text" name="car-model" id="input-1" class="input-field"
-                               placeholder="What car are you looking?">
+                               placeholder="What car are you looking for?">
                     </div>
 
                     <div class="input-wrapper">
@@ -51,10 +47,8 @@
 
                     <button type="submit" class="btn">Search</button>
                 </form>
-
             </div>
         </section>
-
 
         <section class="section featured-car" id="featured-car">
             <div class="container">
@@ -69,67 +63,46 @@
             </div>
         </section>
 
-
         <section class="section get-start">
             <div class="container">
-
                 <h2 class="h2 section-title">Get started with 3 simple steps</h2>
-
                 <ul class="get-start-list">
                     <li>
                         <div class="get-start-card">
-
                             <div class="card-icon icon-2">
                                 <ion-icon name="car-outline"></ion-icon>
                             </div>
-
-                            <h3 class="card-title">Let's find the best suitable car to you.</h3>
-
+                            <h3 class="card-title">Let's find the best suitable car for you.</h3>
                             <p class="card-text">
-                                We will discuss about what you like more, and find the best suitable car to you.
+                                We will discuss what you like more and find the best suitable car for you.
                             </p>
-
                         </div>
                     </li>
-
                     <li>
                         <div class="get-start-card">
-
                             <div class="card-icon icon-3">
                                 <ion-icon name="person-outline"></ion-icon>
                             </div>
-
                             <h3 class="card-title">Get the feeling of autobahn</h3>
-
                             <p class="card-text">
-                                Go to the autobahn and feel the speed of your car. We will help you to get the best
-                                experience.
+                                Go to the autobahn and feel the speed of your car. We will help you to get the best experience.
                             </p>
-
                         </div>
                     </li>
-
                     <li>
                         <div class="get-start-card">
-
                             <div class="card-icon icon-4">
                                 <ion-icon name="card-outline"></ion-icon>
                             </div>
-
                             <h3 class="card-title">Lease our cars!</h3>
-
                             <p class="card-text">
                                 Leasing is also possible with us! You can lease our cars for a long time.
                             </p>
-
                         </div>
                     </li>
-
                 </ul>
-
             </div>
         </section>
-
 
         <section class="section blog" id="blog">
             <div class="container">
@@ -140,6 +113,7 @@
 
     </article>
 </main>
+
 <script src="/js/Navbar.js"></script>
 <script src="/js/rental.js"></script>
 <script src="/js/Footer.js"></script>
@@ -148,6 +122,90 @@
 
 <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
 <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+
+<script>
+    // Fetch translations for the rental page
+    async function fetchTranslations(languageCode, countryCode, page) {
+        try {
+            const response = await fetch(`/api/localization/messages?lang=${languageCode}&country=${countryCode}&page=${page}`);
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return await response.json();
+        } catch (error) {
+            console.error('Failed to fetch translations:', error);
+            return null;
+        }
+    }
+
+    // Function to load translations
+    async function loadTranslations() {
+        const languageCode = localStorage.getItem('selectedLanguageCode') || 'en';
+        const countryCode = localStorage.getItem('selectedCountryCode') || 'UK';
+        const page = 'rental';
+
+        const translations = await fetchTranslations(languageCode, countryCode, page);
+        if (translations) {
+            console.log(translations);
+            document.title = translations['rental.page.title'] || 'OTP1 - Amazing sports car experience!';
+            document.querySelector('.hero-title').innerText = translations['rental.hero.title'] || 'Have an amazing experience with our supercars!';
+
+            // Search Form Placeholders
+            document.querySelector('input[name="car-model"]').placeholder = translations['rental.search.placeholder.car'] || 'What car are you looking for?';
+            document.querySelector('input[name="monthly-pay"]').placeholder = translations['rental.search.placeholder.payment'] || 'Add an amount in $';
+            document.querySelector('input[name="year"]').placeholder = translations['rental.search.placeholder.year'] || 'Add a minimal make year';
+
+            // Featured cars
+            document.querySelector('.section-title').innerText = translations['rental.featured.cars.title'] || 'Featured cars';
+
+            // Featured cars link translatin
+            document.querySelector('.featured-car-link span').innerText = translations['rental.featured.cars.link'] || 'View more';
+
+            // Blog title
+            document.querySelector('.section.blog .section-title').innerText = translations['rental.blog.title'] || 'Our Blog';
+            // Button Text
+            document.querySelector('.btn').innerText = translations['rental.search.button'] || 'Search';
+
+            // Get Started Section
+            const getStartedTitle = document.querySelector('.get-start .section-title');
+            getStartedTitle.innerText = translations['rental.get.started.title'] || 'Get started with 3 simple steps';
+
+            // Step Titles and Descriptions
+            const stepCards = document.querySelectorAll('.get-start-card');
+            stepCards[0].querySelector('.card-title').innerText = translations['rental.get.started.step1.title'] || "Let's find the best suitable car for you.";
+            stepCards[0].querySelector('.card-text').innerText = translations['rental.get.started.step1.text'] || 'We will discuss what you like more and find the best suitable car for you.';
+
+            stepCards[1].querySelector('.card-title').innerText = translations['rental.get.started.step2.title'] || 'Get the feeling of autobahn';
+            stepCards[1].querySelector('.card-text').innerText = translations['rental.get.started.step2.text'] || 'Go to the autobahn and feel the speed of your car. We will help you to get the best experience.';
+
+            stepCards[2].querySelector('.card-title').innerText = translations['rental.get.started.step3.title'] || 'Lease our cars!';
+            stepCards[2].querySelector('.card-text').innerText = translations['rental.get.started.step3.text'] || 'Leasing is also possible with us! You can lease our cars for a long time.';
+
+            document.querySelector('.blog-title').innerText = translations['rental.blog.title'] || 'Our Blog';
+
+            loadFeaturedCars();
+        }
+    }
+
+    async function loadFeaturedCars() {
+        const carList = document.getElementById('car-list');
+        const response = await fetch('/api/cars/featured');
+        const cars = await response.json();
+
+        cars.forEach(car => {
+            const li = document.createElement('li');
+            li.innerHTML = `<div class="car-item">
+                <img src="${car.image}" alt="${car.name}" />
+                <h3>${car.name}</h3>
+                <p>${car.description}</p>
+            </div>`;
+            carList.appendChild(li);
+        });
+    }
+
+    // Load translations on page load
+    document.addEventListener('DOMContentLoaded', loadTranslations);
+</script>
 
 </body>
 

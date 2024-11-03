@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Profile</title>
+    <title id="profilePageTitle">Profile</title>
     <link rel="stylesheet" href="../css/Profile.css">
 </head>
 <body>
@@ -13,40 +13,77 @@
     <div class="Right-side">
         <form id="profileForm">
             <div class="Header">
-            <h1>Profile</h1>
-            <a href="/Rentals">View rentals</a>
+                <h1 id="profileTitle">Profile</h1>
+                <a href="/Rentals" id="viewRentalsLink">View rentals</a>
             </div>
 
             <div class="input-container">
-                <label for="userName">Username</label>
+                <label for="userName" id="usernameLabel">Username</label>
                 <input type="text" id="userName" name="userName" placeholder="Username" required disabled>
             </div>
 
             <div class="input-container">
-                <label for="userLastname">Last Name</label>
+                <label for="userLastname" id="lastnameLabel">Last Name</label>
                 <input type="text" id="userLastname" name="userLastname" placeholder="Last Name" required disabled>
             </div>
 
             <div class="input-container">
-                <label for="userFirstName">First Name</label>
+                <label for="userFirstName" id="firstnameLabel">First Name</label>
                 <input type="text" id="userFirstName" name="userFirstName" placeholder="First Name" required disabled>
             </div>
 
             <div class="input-container">
-                <label for="userEmail">Email</label>
+                <label for="userEmail" id="emailLabel">Email</label>
                 <input type="email" id="userEmail" name="userEmail" placeholder="Email" required disabled>
             </div>
             <p class="Logout-Section">
-                Want to logout? <a href="#" id="logoutBtn">Logout</a>
+                <span id="logoutText">Want to logout?</span> <a href="#" id="logoutBtn">Logout</a>
             </p>
             <p class="Home-click">
-                <a style="text-decoration: none" href="/">Back to home</a>
+                <a style="text-decoration: none" href="/" id="backToHomeLink">Back to home</a>
             </p>
         </form>
     </div>
 </div>
 <script>
+    async function fetchTranslations(languageCode, countryCode, page) {
+        try {
+            const response = await fetch(`/api/localization/messages?lang=${languageCode}&country=${countryCode}&page=${page}`);
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return await response.json();
+        } catch (error) {
+            console.error('Failed to fetch translations:', error);
+            return null;
+        }
+    }
+
+    async function loadTranslations() {
+        const languageCode = localStorage.getItem('selectedLanguageCode') || 'en';
+        const countryCode = localStorage.getItem('selectedCountryCode') || 'UK';
+        const page = 'profile';
+
+        const translations = await fetchTranslations(languageCode, countryCode, page);
+        console.log(translations);
+
+        if (translations) {
+            document.getElementById('profilePageTitle').innerText = translations['profile.page.title'] || 'Profile';
+            document.getElementById('profileTitle').innerText = translations['profile.page.title'] || 'Profile';
+            document.getElementById('viewRentalsLink').innerText = translations['profile.view.rentals'] || 'View rentals';
+            document.getElementById('usernameLabel').innerText = translations['profile.username.label'] || 'Username';
+            document.getElementById('lastnameLabel').innerText = translations['profile.lastname.label'] || 'Last Name';
+            document.getElementById('firstnameLabel').innerText = translations['profile.firstname.label'] || 'First Name';
+            document.getElementById('emailLabel').innerText = translations['profile.email.label'] || 'Email';
+            document.getElementById('logoutText').innerText = translations['profile.logout.prompt'] || 'Want to logout?';
+            document.getElementById('logoutBtn').innerText = translations['profile.logout.button'] || 'Logout';
+            document.getElementById('backToHomeLink').innerText = translations['profile.back.home'] || 'Back to home';
+        }
+    }
+
     document.addEventListener("DOMContentLoaded", function() {
+        loadTranslations();
+
         const token = localStorage.getItem('token');
         if (!token) {
             window.location.href = '/login';
@@ -70,7 +107,7 @@
                 } else if (response.status === 401) {
                     window.location.href = '/login';
                 } else {
-                    document.getElementById('profileForm').innerHTML = 'Error fetching profile data.';
+                    document.getElementById('profileForm').innerHTML = translations['profile.error'] || 'Error fetching profile data.';
                 }
             } catch (error) {
                 document.getElementById('profileForm').innerHTML = 'Error: ' + error.message;
