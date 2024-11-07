@@ -16,15 +16,6 @@ RUN mvn clean package -X
 # Runtime Stage (smaller image)
 FROM openjdk:17-jdk-slim
 
-# Set environment variables for database connectivity
-ARG DB_USERNAME
-ARG DB_PASSWORD
-ARG DB_URL
-
-ENV DB_USERNAME=${DB_USERNAME}
-ENV DB_PASSWORD=${DB_PASSWORD}
-ENV DB_URL=${DB_URL}
-
 # Set the working directory for the runtime container
 WORKDIR /app
 
