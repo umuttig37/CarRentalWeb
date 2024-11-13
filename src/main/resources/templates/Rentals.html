@@ -6,26 +6,66 @@
     <title>Rentals</title>
     <link rel="stylesheet" href="../css/Rentals.css">
     <link rel="stylesheet" href="../css/rental.css">
+    <script src="/auth.js" defer></script>
 </head>
 <body>
 <div class="Rentals">
     <div class="Page">
         <div class="Header">
-            <h1>Rentals</h1>
-            <a href="/profile">View profile</a>
+            <h1 id="rentalsTitle">Rentals</h1>
+            <a href="/profile" id="profileLink">View profile</a>
         </div>
 
         <div class="rental-list-container">
-            <h2>Your rentals</h2>
+            <h2 id="yourRentalsTitle">Your rentals</h2>
             <ul id="rentalList" class="rental-list">
 
             </ul>
+            <!-- Empty rentals message placeholder -->
+            <p id="emptyRentalsMessage" style="display:none;"></p>
         </div>
 
     </div>
 </div>
 
 <script>
+    async function fetchTranslations(languageCode, countryCode, page) {
+        try {
+            const response = await fetch(`/api/localization/messages?lang=${languageCode}&country=${countryCode}&page=${page}`);
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return await response.json();
+        } catch (error) {
+            console.error('Failed to fetch translations:', error);
+            return null;
+        }
+    }
+
+    // Function to fetch translations and update the UI
+    async function loadTranslations() {
+        const languageCode = localStorage.getItem('selectedLanguageCode') || 'en';
+        const countryCode = localStorage.getItem('selectedCountryCode') || 'UK';
+        const page = 'rentals';
+
+        const translations = await fetchTranslations(languageCode, countryCode, page);
+        console.log(translations);
+
+        if (translations) {
+            document.getElementById('rentalsTitle').innerText = translations['rentals.page.title'] || 'Rentals';
+            document.getElementById('profileLink').innerText = translations['rentals.header.profile'] || 'View profile';
+            document.getElementById('yourRentalsTitle').innerText = translations['rentals.title'] || 'Your rentals';
+            // Set the empty rentals message translation
+            document.getElementById('emptyRentalsMessage').innerText = translations['rentals.empty'] || 'You have no rentals yet.';
+            // Set translations for start and end date labels
+            window.startDateLabel = translations['rentals.startdate'] || 'Start date';
+            window.endDateLabel = translations['rentals.enddate'] || 'End date';
+        }
+    }
+
+    // Load translations on page load
+    loadTranslations();
+
     document.addEventListener("DOMContentLoaded", function() {
         const token = localStorage.getItem('token');
         if (!token) {
@@ -34,6 +74,7 @@
         }
 
         const carList = document.getElementById('rentalList');
+        const emptyRentalsMessage = document.getElementById('emptyRentalsMessage');
 
         async function getRentals() {
             try {
@@ -48,13 +89,16 @@
                     throw new Error('Network response was not ok');
                 }
                 const cars = await response.json();
-                console.log(cars)
+                console.log(cars);
 
-                // Populate the list with car data
+                // If no cars are returned, display the empty rentals message
                 if (cars.length === 0) {
-                    carList.innerHTML = '<p>You have no rentals yet.</p>';
+                    carList.innerHTML = '';  // Clear the car list
+                    emptyRentalsMessage.style.display = 'block';  // Show the empty rentals message
                     return;
                 }
+
+                // Populate the list with car data
                 cars.forEach(car => {
                     const li = document.createElement('li');
                     li.innerHTML = `
@@ -69,9 +113,8 @@
                                     </h3>
                                     <data class="reg" value="${car.vehicleReg}">${car.vehicleReg}</data>
                                 </div>
-                                <li>Start date: ${car.rentalStartDate}</li>
-                                <li>End date: ${car.rentalEndDate}</li>
-                                </ul>
+                                <li>${window.startDateLabel}: ${car.rentalStartDate}</li>
+                                <li>${window.endDateLabel}: ${car.rentalEndDate}</li>
                             </div>
                         </div>
                     `;
@@ -79,13 +122,14 @@
                 });
             } catch (error) {
                 console.error('There was a problem fetching the car data:', error);
-                carList.innerHTML = '<p>Sorry, we couldn’t load the car data. Please try again later.</p>';
+                carList.innerHTML = ''; // Clear the list if there's an error
+                emptyRentalsMessage.style.display = 'block'; // Show the error message
+                emptyRentalsMessage.innerText = translations['rentals.error'] || 'Sorry, we couldn’t load the car data. Please try again later.';
             }
         }
 
         getRentals();
     });
 </script>
-
 </body>
 </html>

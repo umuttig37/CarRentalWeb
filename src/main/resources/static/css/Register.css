@@ -60,8 +60,10 @@ body {
 }
 
 #registerForm .User-Agreement a {
-    color: #3F3CEE;
     text-decoration: none;
+}
+#registerForm .User-Agreement #byClickingCreateAccount, #userAgreementAnd {
+    color: black;
 }
 
 #registerForm input {

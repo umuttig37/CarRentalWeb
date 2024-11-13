@@ -20,9 +20,9 @@
             <input type="email" id="userEmail" name="userEmail" placeholder="Email" required>
 
             <p class="User-Agreement" id="userAgreementText">
-                By clicking Create Account, you agree to our
+                <a href="" target="_blank" id="byClickingCreateAccount">By clicking Create Account, you agree to our</a>
                 <a href="user-agreement-url" target="_blank" id="userAgreementLink">User Agreement</a>
-                and
+                <a href="" target="_blank" id="userAgreementAnd">and</a>
                 <a href="privacy-policy-url" target="_blank" id="privacyPolicyLink">Privacy Policy</a>.
             </p>
 
@@ -58,6 +58,7 @@
         const page = 'register';
 
         const translations = await fetchTranslations(languageCode, countryCode, page);
+        console.log(translations);
 
         if (translations) {
             document.getElementById('createAccountText').innerText = translations['register.page.title'] || 'Create Account';
@@ -72,6 +73,8 @@
             document.getElementById('alreadyHaveAccountText').innerText = translations['register.already.have.account'] || 'Already have an account?';
             document.getElementById('loginLink').innerText = translations['register.login.link'] || 'Login';
             document.getElementById('backToHomeLink').innerText = translations['register.back.home'] || 'Back to Home';
+            document.getElementById('byClickingCreateAccount').innerText = translations['register.user.agreement' || 'By clicking Create Account, you agree to our'];
+            document.getElementById('userAgreementAnd').innerText = translations['register.user.agreement.and' || 'and'];
         }
     }
 

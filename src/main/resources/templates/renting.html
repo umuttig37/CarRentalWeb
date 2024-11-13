@@ -14,19 +14,19 @@
     <div class="Right-side">
         <div class="Flex">
             <div class="Details">
-                <h1>Rent <span id="car-name">Tesla Model S</span></h1>
-                <h1>Price per day: <span id="car-price">0€</span></h1>
-                <h1>Total Price: <span id="calculated-price">0€</span></h1>
+                <h1><a class="title">Rent a car </a><a class id="car-name"></a></h1>
+                <h1><a class="price-per-day"></a><a id="car-price"> 0€</a></h1>
+                <h1><a class="total-price"></a><a id="calculated-price"> 0€</a></h1>
             </div>
         </div>
         <form id="rental-form">
             <div class="form-group">
-                <label for="pickup-date">Pickup Date:</label>
+                <label class="pickup-date" for="pickup-date">Pickup Date:</label>
                 <input type="date" id="pickup-date" required>
             </div>
 
             <div class="form-group">
-                <label for="dropoff-date">Drop-off Date:</label>
+                <label class="dropoff-date" for="dropoff-date">Drop-off Date:</label>
                 <input type="date" id="dropoff-date" required>
             </div>
 
@@ -35,6 +35,128 @@
     </div>
 </div>
 
-<script src="/js/Car-details.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', async function () {
+        const urlParams = new URLSearchParams(window.location.search);
+        const carReg = urlParams.get('carReg');
+        const token = localStorage.getItem('token');
+        const rentButton = document.getElementById('Rent-button');
+        const translations = {};
+
+        async function fetchTranslations(languageCode, countryCode, page) {
+            try {
+                const response = await fetch(`/api/localization/messages?lang=${languageCode}&country=${countryCode}&page=${page}`);
+                if (!response.ok) throw new Error('Network response was not ok');
+                return await response.json();
+            } catch (error) {
+                console.error('Failed to fetch translations:', error);
+                return null;
+            }
+        }
+
+        async function loadTranslations() {
+            const languageCode = localStorage.getItem('selectedLanguageCode') || 'en';
+            const countryCode = localStorage.getItem('selectedCountryCode') || 'UK';
+            const page = 'renting';
+
+            Object.assign(translations, await fetchTranslations(languageCode, countryCode, page) || {});
+
+            document.getElementsByClassName('title').innerText = translations['renting.title']|| 'Rent a Car';
+            document.getElementById('Rent-button').innerText = translations['renting.rent'] || 'Rent';
+            document.querySelector('.pickup-date').innerText = translations['renting.pickup_date'] || 'Pickup Date:';
+            document.querySelector('.dropoff-date').innerText = translations['renting.dropoff_date'] || 'Drop-off Date:';
+            document.querySelector('.price-per-day').innerText = translations['renting.price_per_day'] || 'Price per day:';
+            document.querySelector('.total-price').innerText = translations['renting.total_price'] || 'Total Price:';
+            document.querySelector('.title').innerText = translations['renting.title'] || 'Rent a Car';
+            document.querySelector('#pickup-date').placeholder = translations['renting.date'] || 'mm/dd/yyyy';
+            document.querySelector('#dropoff-date').placeholder = translations['renting.date'] || 'mm/dd/yyyy';
+        }
+
+        loadTranslations();
+
+        if (carReg) {
+            try {
+                const response = await fetch('/api/vehicle');
+                if (!response.ok) throw new Error('Failed to fetch vehicle data.');
+                const cars = await response.json();
+                const car = cars.find(c => c.vehicleReg === carReg);
+
+                if (car) {
+                    document.getElementById('car-name').textContent = car.vehicleTitle;
+                    document.getElementById('car-price').textContent = car.vehiclePrice + '€';
+
+                    document.querySelector('.Left-side').style.backgroundImage = `url(${car.image})`;
+
+                    const pickupDateInput = document.getElementById('pickup-date');
+                    const dropoffDateInput = document.getElementById('dropoff-date');
+                    const calculatedPriceElement = document.getElementById('calculated-price');
+
+                    function calculatePrice() {
+                        const pickupDate = new Date(pickupDateInput.value);
+                        const dropoffDate = new Date(dropoffDateInput.value);
+
+                        if (pickupDate && dropoffDate && !isNaN(pickupDate) && !isNaN(dropoffDate) && dropoffDate > pickupDate) {
+                            const daysDiff = Math.ceil((dropoffDate - pickupDate) / (1000 * 3600 * 24));
+                            calculatedPriceElement.textContent = (daysDiff * car.vehiclePrice) + '€';
+                        } else {
+                            calculatedPriceElement.textContent = car.vehiclePrice + '€';
+                        }
+                    }
+
+                    pickupDateInput.addEventListener('input', calculatePrice);
+                    dropoffDateInput.addEventListener('input', calculatePrice);
+
+                    rentButton.addEventListener('click', function (event) {
+                        event.preventDefault();
+                        const pickupDate = pickupDateInput.value;
+                        const dropoffDate = dropoffDateInput.value;
+
+                        if (!pickupDate || !dropoffDate) {
+                            alert(translations['renting.alert.nodates'] || 'Please select both pickup and drop-off dates.');
+                            return;
+                        }
+
+                        if (new Date(dropoffDate) <= new Date(pickupDate)) {
+                            alert(translations['renting.alert.dropoff'] || 'Drop-off date must be after the pickup date.');
+                            return;
+                        }
+
+                        const confirmed = confirm(translations['renting.alert.areyousure'] || 'Are you sure you want to rent this car?');
+                        if (confirmed) {
+                            const rentalData = {
+                                vehicleReg: car.vehicleReg,
+                                pickupDate: pickupDate,
+                                dropoffDate: dropoffDate
+                            };
+
+                            fetch('/api/rent', {
+                                method: 'POST',
+                                headers: {
+                                    'Content-Type': 'application/json',
+                                    'Authorization': `Bearer ${token}`
+                                },
+                                body: JSON.stringify(rentalData)
+                            })
+                                .then(response => response.ok ? response.json() : Promise.reject(response.text()))
+                                .then(data => {
+                                    alert(translations['renting.alert.success'] || 'Rental confirmed successfully!');
+                                    window.location.href = '/Rentals';
+                                })
+                                .catch(error => {
+                                    console.error('Error confirming rental:', error);
+                                    alert(`Error confirming rental: ${error.message}`);
+                                });
+                        }
+                    });
+                } else {
+                    alert('Car not found!');
+                }
+            } catch (error) {
+                console.error('Error fetching car data:', error);
+            }
+        }
+    });
+
+</script>
 </body>
 </html>
