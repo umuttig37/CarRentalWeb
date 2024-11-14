@@ -36,7 +36,8 @@ public class UserController {
     public ResponseEntity<?> loginUser(@RequestBody Map<String, String> loginDetails) {
         String username = loginDetails.get("username");
         String password = loginDetails.get("password");
-        User user = userService.loginUser(username, password);
+        String language = loginDetails.get("language"); // Get the language from the request
+        User user = userService.loginUser(username, password, language);
         if (user != null) {
             System.out.println("User found");
             // Generate the token using the username

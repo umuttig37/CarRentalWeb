@@ -18,18 +18,19 @@ public class UserService implements UserDetailsService {
 
     @Autowired
     PasswordEncoder passwordEncoder;
+
     public User registerUser(User user) {
         user.setUserPassword(passwordEncoder.encode(user.getUserPassword()));
         return userRepository.save(user);
     }
 
-    public User loginUser(String username, String userpassword) {
+    public User loginUser(String username, String userpassword, String language) {
         System.out.println("username: " + username + " userpassword: " + userpassword);
-        if (userpassword== null) {
+        if (userpassword == null) {
             throw new IllegalArgumentException("rawPassword cannot be null");
         }
         System.out.println("rawPassword: " + userpassword);
-        User user = userRepository.findByUserName(username);
+        User user = findByUserName(username, language);
         if (user != null && passwordEncoder.matches(userpassword, user.getUserPassword())) {
             return user;
         }
@@ -38,7 +39,8 @@ public class UserService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = userRepository.findByUserName(username);
+        // Assuming default language is "en"
+        User user = findByUserName(username, "en");
         if (user == null) {
             throw new UsernameNotFoundException("User not found with username: " + username);
         }
@@ -51,5 +53,16 @@ public class UserService implements UserDetailsService {
                 .credentialsExpired(false)
                 .disabled(false)
                 .build();
+    }
+
+    private User findByUserName(String username, String language) {
+        switch (language) {
+            case "fi": return userRepository.findByUserNameFi(username);
+            case "en": return userRepository.findByUserNameEn(username);
+            case "fr": return userRepository.findByUserNameFr(username);
+            case "jp": return userRepository.findByUserNameJp(username);
+            case "zh": return userRepository.findByUserNameZh(username);
+            default: return null;
+        }
     }
 }
