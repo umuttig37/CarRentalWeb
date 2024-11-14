@@ -118,6 +118,33 @@ body {
     font-size: 24px; /* Adjust heading size for better prominence */
     margin-bottom: 10px; /* Add space below the heading */
 }
+.LanguageSelector {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    width: 100%;
+    gap: 30px;
+    margin-top: 20px;
+}
+.LanguageSelector img {
+    width: 30px;
+    height: 30px;
+    margin: 0 10px;
+    cursor: pointer;
+    border-radius: 20px;
+    margin: 0px;
+}
+.LanguageSelector button {
+    padding: 0px;
+    background: none;
+    border: none;
+    width: 30px;
+    height: 40px;
+}
+.LanguageSelector button:hover {
+    cursor: pointer;
+    opacity: 80%;
+}
 
 /* Media Queries for Responsiveness */
 @media (max-width: 768px) {
