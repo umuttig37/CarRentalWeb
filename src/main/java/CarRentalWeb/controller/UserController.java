@@ -28,6 +28,8 @@ public class UserController {
 
     @PostMapping("/register")
     public ResponseEntity<?> registerUser(@RequestBody User user) {
+        user.setUserLastname(user.getUserLastname());
+        user.setUserFirstName(user.getUserFirstName());
         User registeredUser = userService.registerUser(user);
         return ResponseEntity.ok(registeredUser);
     }
@@ -39,7 +41,8 @@ public class UserController {
         String language = loginDetails.get("language"); // Get the language from the request
         User user = userService.loginUser(username, password, language);
         if (user != null) {
-            System.out.println("User found");
+            user.setUserLastname(user.getUserLastname());
+            user.setUserFirstName(user.getUserFirstName());
             // Generate the token using the username
             String token = jwtUtil.generateToken(user.getUserName());
 
