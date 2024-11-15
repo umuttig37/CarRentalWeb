@@ -38,7 +38,7 @@ public class RentalController {
 
         String username = principal.getName();
         System.out.println("User " + username + " is renting a vehicle");
-        User authenticatedUser = findByUserName(username, "en"); // Assuming default language is "en"
+        User authenticatedUser = findByUserName(username); // Assuming default language is "en"
 
         if (authenticatedUser != null) {
             Vehicle vehicle = vehicleRepository.findByVehicleReg(rentalRequest.getVehicleReg());
@@ -81,7 +81,7 @@ public class RentalController {
 
         String username = principal.getName();
         System.out.println("User " + username + " is fetching their rentals");
-        User authenticatedUser = findByUserName(username, "en"); // Assuming default language is "en"
+        User authenticatedUser = findByUserName(username); // Assuming default language is "en"
 
         if (authenticatedUser != null) {
             List<RentalTransaction> rentals = rentalTransactionRepository.findByUser(authenticatedUser);
@@ -110,14 +110,7 @@ public class RentalController {
         }
     }
 
-    private User findByUserName(String username, String language) {
-        switch (language) {
-            case "fi": return userRepository.findByUserNameFi(username);
-            case "en": return userRepository.findByUserNameEn(username);
-            case "fr": return userRepository.findByUserNameFr(username);
-            case "jp": return userRepository.findByUserNameJp(username);
-            case "zh": return userRepository.findByUserNameZh(username);
-            default: return null;
-        }
+    private User findByUserName(String username) {
+        return userRepository.findByUserName(username);
     }
 }

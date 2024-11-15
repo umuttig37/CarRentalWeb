@@ -18,11 +18,21 @@
             <input type="password" id="userPassword" name="userPassword" placeholder="Password" required>
             <input type="email" id="userEmail" name="userEmail" placeholder="Email" required>
             <div class="LanguageSelector">
-                <button> <img src="../Languages/Finland-flag.png" alt="Finland" class="flag-icon"></button>
-                <button> <img src="../Languages/UK-Flag.png" alt="English" class="flag-icon"></button>
-                <button> <img src="../Languages/France-Flag.png" alt="France" class="flag-icon"></button>
-                <button> <img src="../Languages/Japan-Flag.png" alt="Japan" class="flag-icon"></button>
-                <button> <img src="../Languages/ChinaFlag.png" alt="China" class="flag-icon"></button>
+                <button type="button" data-language="fi">
+                    <img src="../Languages/Finland-flag.png" alt="Finland" class="flag-icon">
+                </button>
+                <button type="button" data-language="en">
+                    <img src="../Languages/UK-Flag.png" alt="English" class="flag-icon">
+                </button>
+                <button type="button" data-language="fr">
+                    <img src="../Languages/France-Flag.png" alt="France" class="flag-icon">
+                </button>
+                <button type="button" data-language="jp">
+                    <img src="../Languages/Japan-Flag.png" alt="Japan" class="flag-icon">
+                </button>
+                <button type="button" data-language="cn">
+                    <img src="../Languages/ChinaFlag.png" alt="China" class="flag-icon">
+                </button>
             </div>
             <p class="User-Agreement" id="userAgreementText">
                 <a href="" target="_blank" id="byClickingCreateAccount">By clicking Create Account, you agree to our</a>
@@ -44,6 +54,7 @@
 </div>
 
 <script>
+    let selectedLanguage = null;
     async function fetchTranslations(languageCode, countryCode, page) {
         try {
             const response = await fetch(`/api/localization/messages?lang=${languageCode}&country=${countryCode}&page=${page}`);
@@ -56,6 +67,22 @@
             return null;
         }
     }
+    document.querySelectorAll('.LanguageSelector button').forEach(button => {
+        button.addEventListener('click', (e) => {
+            // Remove 'selected' class from all buttons
+            document.querySelectorAll('.LanguageSelector button').forEach(btn => {
+                btn.classList.remove('selected');
+            });
+
+            // Add 'selected' class to the clicked button
+            e.currentTarget.classList.add('selected');
+
+            // Save the selected language
+            selectedLanguage = e.currentTarget.getAttribute('data-language');
+            console.log(`Selected language: ${selectedLanguage}`);
+        });
+    });
+
 
     async function loadTranslations() {
         const languageCode = localStorage.getItem('selectedLanguageCode') || 'en';
@@ -90,7 +117,11 @@
     }
 
     document.getElementById('registerForm').addEventListener('submit', async (e) => {
-        e.preventDefault();
+        if (!selectedLanguage) {
+            alert('Please select a language');
+            e.preventDefault(); // Prevent form submission but keep input values intact
+            return;
+        }
         const userName = document.getElementById('userName').value;
         const userLastname = document.getElementById('userLastname').value;
         const userFirstName = document.getElementById('userFirstName').value;

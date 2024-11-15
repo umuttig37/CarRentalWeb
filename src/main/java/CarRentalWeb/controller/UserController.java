@@ -38,8 +38,7 @@ public class UserController {
     public ResponseEntity<?> loginUser(@RequestBody Map<String, String> loginDetails) {
         String username = loginDetails.get("username");
         String password = loginDetails.get("password");
-        String language = loginDetails.get("language"); // Get the language from the request
-        User user = userService.loginUser(username, password, language);
+        User user = userService.loginUser(username, password);
         if (user != null) {
             user.setUserLastname(user.getUserLastname());
             user.setUserFirstName(user.getUserFirstName());

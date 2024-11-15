@@ -25,7 +25,7 @@ public class AccessController {
     public ResponseEntity<?> getProfile(Principal principal) {
         String username = principal.getName();
         // Assuming default language is "en"
-        User user = findByUserName(username, "en");
+        User user = findByUserName(username);
 
         if (user != null) {
             return ResponseEntity.ok(new UserDTO(user.getUserName(), user.getUserEmail(), user.getUserFirstName(), user.getUserFirstName()));
@@ -34,14 +34,7 @@ public class AccessController {
         }
     }
 
-    private User findByUserName(String username, String language) {
-        switch (language) {
-            case "fi": return userRepository.findByUserNameFi(username);
-            case "en": return userRepository.findByUserNameEn(username);
-            case "fr": return userRepository.findByUserNameFr(username);
-            case "jp": return userRepository.findByUserNameJp(username);
-            case "zh": return userRepository.findByUserNameZh(username);
-            default: return null;
-        }
+    private User findByUserName(String username) {
+        return userRepository.findByUserName(username);
     }
 }

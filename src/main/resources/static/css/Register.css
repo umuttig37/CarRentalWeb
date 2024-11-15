@@ -96,6 +96,10 @@ body {
     line-height: 1.5; /* Use line-height for better scaling */
     letter-spacing: 1.28px;
 }
+.LanguageSelector button.selected {
+    border: 2px solid red;
+    border-radius: 4px;
+}
 
 #registerForm button:hover {
     cursor: pointer;

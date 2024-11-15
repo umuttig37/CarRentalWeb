@@ -18,8 +18,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        // Assuming default language is "en"
-        User user = findByUserName(username, "en");
+        User user = findByUserName(username);
         if (user == null) {
             throw new UsernameNotFoundException("User not found with username: " + username);
         }
@@ -39,14 +38,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         );
     }
 
-    private User findByUserName(String username, String language) {
-        switch (language) {
-            case "fi": return userRepository.findByUserNameFi(username);
-            case "en": return userRepository.findByUserNameEn(username);
-            case "fr": return userRepository.findByUserNameFr(username);
-            case "jp": return userRepository.findByUserNameJp(username);
-            case "zh": return userRepository.findByUserNameZh(username);
-            default: return null;
-        }
+    private User findByUserName(String username) {
+        return userRepository.findByUserName(username);
     }
 }

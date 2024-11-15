@@ -17,44 +17,34 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long userId;
 
-    private String language; // Tracks user's preferred language, e.g., "fi", "en", etc.
+    private String language;
 
-    // Universal fields stored in the main `user` table
+    private String userName;
+
     private String userPassword;
     @Column(unique = true)
     private String userEmail;
 
-    // Fields with the same names across all language tables
-    @Column(table = "user_fi")
-    private String userNameFi;
     @Column(table = "user_fi")
     private String userLastnameFi;
     @Column(table = "user_fi")
     private String userFirstNameFi;
 
     @Column(table = "user_en")
-    private String userNameEn;
-    @Column(table = "user_en")
     private String userLastnameEn;
     @Column(table = "user_en")
     private String userFirstNameEn;
 
-    @Column(table = "user_fr")
-    private String userNameFr;
     @Column(table = "user_fr")
     private String userLastnameFr;
     @Column(table = "user_fr")
     private String userFirstNameFr;
 
     @Column(table = "user_jp")
-    private String userNameJp;
-    @Column(table = "user_jp")
     private String userLastnameJp;
     @Column(table = "user_jp")
     private String userFirstNameJp;
 
-    @Column(table = "user_zh")
-    private String userNameZh;
     @Column(table = "user_zh")
     private String userLastnameZh;
     @Column(table = "user_zh")
@@ -74,23 +64,10 @@ public class User {
     public void setUserEmail(String userEmail) { this.userEmail = userEmail; }
 
     public String getUserName() {
-        switch (language) {
-            case "fi": return userNameFi;
-            case "en": return userNameEn;
-            case "fr": return userNameFr;
-            case "jp": return userNameJp;
-            case "zh": return userNameZh;
-            default: return null;
-        }
+        return userName;
     }
     public void setUserName(String userName) {
-        switch (language) {
-            case "fi": this.userNameFi = userName; break;
-            case "en": this.userNameEn = userName; break;
-            case "fr": this.userNameFr = userName; break;
-            case "jp": this.userNameJp = userName; break;
-            case "zh": this.userNameZh = userName; break;
-        }
+        this.userName = userName;
     }
 
     public String getUserLastname() {
