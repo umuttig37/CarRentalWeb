@@ -26,9 +26,11 @@ public class AccessController {
         String username = principal.getName();
         // Assuming default language is "en"
         User user = findByUserName(username);
+        System.out.println("User " + username + " is accessing their profile");
+        System.out.println("User: " + user);
 
         if (user != null) {
-            return ResponseEntity.ok(new UserDTO(user.getUserName(), user.getUserEmail(), user.getUserFirstName(), user.getUserFirstName()));
+            return ResponseEntity.ok(new UserDTO(user.getUserName(), user.getUserEmail(), user.getUserFirstName(), user.getUserLastname()));
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found");
         }

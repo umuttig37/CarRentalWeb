@@ -17,6 +17,10 @@
             <input type="text" id="userFirstName" name="userFirstName" placeholder="First Name" required>
             <input type="password" id="userPassword" name="userPassword" placeholder="Password" required>
             <input type="email" id="userEmail" name="userEmail" placeholder="Email" required>
+
+            <!-- Hidden input for storing the selected language -->
+            <input type="hidden" id="language" name="language">
+
             <div class="LanguageSelector">
                 <button type="button" data-language="fi">
                     <img src="../Languages/Finland-flag.png" alt="Finland" class="flag-icon">
@@ -30,10 +34,11 @@
                 <button type="button" data-language="jp">
                     <img src="../Languages/Japan-Flag.png" alt="Japan" class="flag-icon">
                 </button>
-                <button type="button" data-language="cn">
+                <button type="button" data-language="zh">
                     <img src="../Languages/ChinaFlag.png" alt="China" class="flag-icon">
                 </button>
             </div>
+
             <p class="User-Agreement" id="userAgreementText">
                 <a href="" target="_blank" id="byClickingCreateAccount">By clicking Create Account, you agree to our</a>
                 <a href="user-agreement-url" target="_blank" id="userAgreementLink">User Agreement</a>
@@ -55,71 +60,69 @@
 
 <script>
     let selectedLanguage = null;
-    async function fetchTranslations(languageCode, countryCode, page) {
-        try {
-            const response = await fetch(`/api/localization/messages?lang=${languageCode}&country=${countryCode}&page=${page}`);
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
+    document.addEventListener('DOMContentLoaded', async function () {
+        const translations = {};
+
+        async function fetchTranslations(languageCode, countryCode, page) {
+            try {
+                const response = await fetch(`/api/localization/messages?lang=${languageCode}&country=${countryCode}&page=${page}`);
+                if (!response.ok) throw new Error('Network response was not ok');
+                return await response.json();
+            } catch (error) {
+                console.error('Failed to fetch translations:', error);
+                return null;
             }
-            return await response.json();
-        } catch (error) {
-            console.error('Failed to fetch translations:', error);
-            return null;
         }
-    }
-    document.querySelectorAll('.LanguageSelector button').forEach(button => {
-        button.addEventListener('click', (e) => {
-            // Remove 'selected' class from all buttons
-            document.querySelectorAll('.LanguageSelector button').forEach(btn => {
-                btn.classList.remove('selected');
-            });
 
-            // Add 'selected' class to the clicked button
-            e.currentTarget.classList.add('selected');
+        async function loadTranslations() {
+            const languageCode = localStorage.getItem('selectedLanguageCode') || 'en';
+            const countryCode = localStorage.getItem('selectedCountryCode') || 'UK';
+            const page = 'register';
 
-            // Save the selected language
-            selectedLanguage = e.currentTarget.getAttribute('data-language');
-            console.log(`Selected language: ${selectedLanguage}`);
-        });
-    });
+            Object.assign(translations, await fetchTranslations(languageCode, countryCode, page) || {});
 
+            console.log(translations);
 
-    async function loadTranslations() {
-        const languageCode = localStorage.getItem('selectedLanguageCode') || 'en';
-        const countryCode = localStorage.getItem('selectedCountryCode') || 'UK';
-        const page = 'register';
-
-        const translations = await fetchTranslations(languageCode, countryCode, page);
-        console.log(translations);
-
-        if (translations) {
-            document.getElementById('createAccountText').innerText = translations['register.page.title'] || 'Create Account';
+            document.getElementById('createAccountText').innerText = translations['register.heading'] || 'Create Account';
             document.getElementById('userName').placeholder = translations['register.username.placeholder'] || 'Username';
             document.getElementById('userLastname').placeholder = translations['register.lastname.placeholder'] || 'Last Name';
             document.getElementById('userFirstName').placeholder = translations['register.firstname.placeholder'] || 'First Name';
             document.getElementById('userPassword').placeholder = translations['register.password.placeholder'] || 'Password';
             document.getElementById('userEmail').placeholder = translations['register.email.placeholder'] || 'Email';
+            document.getElementById('byClickingCreateAccount').innerText = translations['register.user.agreement'] || 'By clicking Create Account, you agree to our';
             document.getElementById('userAgreementLink').innerText = translations['register.user.agreement.link'] || 'User Agreement';
+            document.getElementById('userAgreementAnd').innerText = translations['register.user.agreement.and'] || 'and';
             document.getElementById('privacyPolicyLink').innerText = translations['register.privacy.policy.link'] || 'Privacy Policy';
             document.getElementById('createAccountButton').innerText = translations['register.button'] || 'Create Account';
             document.getElementById('alreadyHaveAccountText').innerText = translations['register.already.have.account'] || 'Already have an account?';
             document.getElementById('loginLink').innerText = translations['register.login.link'] || 'Login';
             document.getElementById('backToHomeLink').innerText = translations['register.back.home'] || 'Back to Home';
-            document.getElementById('byClickingCreateAccount').innerText = translations['register.user.agreement' || 'By clicking Create Account, you agree to our'];
-            document.getElementById('userAgreementAnd').innerText = translations['register.user.agreement.and' || 'and'];
         }
-    }
+        // Load translations when the page loads
+        await loadTranslations();
+        });
 
-    loadTranslations();
 
-    if (localStorage.getItem('token')) {
-        window.location.replace('/profile');
-    }
+
+
+    document.querySelectorAll('.LanguageSelector button').forEach(button => {
+        button.addEventListener('click', (e) => {
+            document.querySelectorAll('.LanguageSelector button').forEach(btn => {
+                btn.classList.remove('selected');
+            });
+
+            e.currentTarget.classList.add('selected');
+
+            selectedLanguage = e.currentTarget.getAttribute('data-language');
+            document.getElementById('language').value = selectedLanguage;
+            console.log(`Selected language: ${selectedLanguage}`);
+        });
+    });
 
     document.getElementById('registerForm').addEventListener('submit', async (e) => {
         if (!selectedLanguage) {
             alert('Please select a language');
-            e.preventDefault(); // Prevent form submission but keep input values intact
+            e.preventDefault();
             return;
         }
         const userName = document.getElementById('userName').value;
@@ -127,13 +130,14 @@
         const userFirstName = document.getElementById('userFirstName').value;
         const userPassword = document.getElementById('userPassword').value;
         const userEmail = document.getElementById('userEmail').value;
-
+        const language = document.getElementById('language').value;
+        console.log({userEmail, userPassword, language, userName, userFirstName, userLastname})
         const response = await fetch('/api/users/register', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ userName, userLastname, userFirstName, userPassword, userEmail })
+            body: JSON.stringify({userEmail, userPassword, language, userName, userFirstName, userLastname})
         });
 
         if (response.ok) {

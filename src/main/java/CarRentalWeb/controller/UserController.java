@@ -36,6 +36,7 @@ public class UserController {
 
     @PostMapping("/login")
     public ResponseEntity<?> loginUser(@RequestBody Map<String, String> loginDetails) {
+        System.out.println("loginDetails: " + loginDetails);
         String username = loginDetails.get("username");
         String password = loginDetails.get("password");
         User user = userService.loginUser(username, password);
