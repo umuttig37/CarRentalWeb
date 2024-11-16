@@ -137,15 +137,14 @@
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({userEmail, userPassword, language, userName, userFirstName, userLastname})
+            body: JSON.stringify({userEmail, userPassword, language, userName, userFirstName, userLastname}),
         });
-
+        console.log(response);
+        console.log(await response.json());
         if (response.ok) {
-            const user = await response.json();
-            window.location.href = '/login';
-            alert(translations['register.success'] || 'Registration successful');
+            console.log('Registration successful');
         } else {
-            alert(translations['register.failed'] || 'Registration failed');
+            console.error('Registration failed', response.status, await response.text());
         }
     });
 </script>
