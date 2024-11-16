@@ -137,9 +137,23 @@
                                 },
                                 body: JSON.stringify(rentalData)
                             })
-                                .then(response => response.ok ? response.json() : Promise.reject(response.text()))
+                                .then(response => {
+                                    if (!response.ok) {
+                                        return response.text().then(err => Promise.reject(new Error(err)));
+                                    }
+                                    const contentType = response.headers.get("content-type");
+                                    if (contentType && contentType.includes("application/json")) {
+                                        return response.json();
+                                    } else {
+                                        return response.text();
+                                    }
+                                })
                                 .then(data => {
-                                    alert(translations['renting.alert.success'] || 'Rental confirmed successfully!');
+                                    if (typeof data === 'string') {
+                                        alert(translations['renting.alert.success'] || data);
+                                    } else {
+                                        alert(translations['renting.alert.success'] || 'Rental confirmed successfully!');
+                                    }
                                     window.location.href = '/Rentals';
                                 })
                                 .catch(error => {
