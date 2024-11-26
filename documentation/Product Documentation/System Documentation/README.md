@@ -41,6 +41,7 @@ The system follows a **three-tier architecture**:
 - **Rental_Transaction:** Stores rentals details (rental_id, rental_date, rental_end_date, vehicle_id).
 
 **Database Schema:**
+
 ![image](https://github.com/user-attachments/assets/72db7dac-096f-4352-960a-a3b5ab45cad5)
 
 
