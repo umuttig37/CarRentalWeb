@@ -23,6 +23,13 @@ The system follows a **three-tier architecture**:
 ### System Architecture Diagram
 ![Untitled-5-01](https://github.com/user-attachments/assets/81190190-dbd7-4ddb-9179-e7c496c467ec)
 
+```mermaid
+graph TD
+    A[User Interface] --> B[Backend API]
+    B --> C[Database]
+    B --> D[Email Notification Service]
+````
+
 
 ---
 ## Audiences
