@@ -2,44 +2,14 @@
   <img src="https://github.com/user-attachments/assets/82d330dd-3c91-4c48-95f6-c34464c7fc9f" alt="logo">
 </p>
 
-<h1 align="center">🚗 Car Rental Web Application</h1>
+<h1 align="left">🚗 Car Rental Web Application</h1>
 
 Car Rental Web is a web application designed for managing car rentals. It provides users with a seamless experience for browsing available cars, making reservations, and managing their rentals.
 
 
+<h2 align="left">Technologies & Dependencies</h1>
 
-
-
-
-
-
-
-
-
----
-
-<h3 align="center">🎨 Design</h3>
-
-## Design Style - Created in Figma
-🔗 [Figma File](https://www.figma.com/design/HLULD5z6pEzlhatXqrLef8/Car-Rental-Web?node-id=76-178&t=fdV6qBFEQg8gVF7b-1)
-
-### Figma File Preview
-![Figma Preview](https://github.com/user-attachments/assets/f703bbde-6895-4d5c-bb23-44983c2923f6)
-
----
-
-<h3 align="center">💻 Application Features</h3>
-
-### Key Features
-- 🔐 **User Authentication**: Secure registration and login for users.
-- 🚗 **Car Listings**: View available cars and apply filters to find the ideal rental.
-- 📅 **Reservation System**: Easily select rental dates and confirm reservations.
-
----
-
-<h3 align="center">🛠️ Tech Stack</h3>
-
-| **Tech**          | **Description**                              |
+| **Technology**          | **Description**                              |
 |-------------------|----------------------------------------------|
 | ![Java](https://img.shields.io/badge/Java-ED8B00?style=for-the-badge&logo=java&logoColor=white)           | Backend logic and business operations     |
 | ![Spring Boot](https://img.shields.io/badge/Spring%20Boot-6DB33F?style=for-the-badge&logo=spring-boot&logoColor=white)  | Framework for backend services            |
@@ -47,10 +17,6 @@ Car Rental Web is a web application designed for managing car rentals. It provid
 | ![HTML](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white)          | Frontend structure                        |
 | ![CSS](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white)            | Styling for the user interface            |
 | ![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black) | Interactivity in the frontend             |
-
----
-
-### 📦 Dependencies
 
 | **Dependency**                                 | **Description**                                     |
 |------------------------------------------------|-----------------------------------------------------|
@@ -70,35 +36,21 @@ Car Rental Web is a web application designed for managing car rentals. It provid
 | [JaCoCo Maven Plugin](https://mvnrepository.com/artifact/org.jacoco/jacoco-maven-plugin) | For generating test coverage reports.               |
 
 
+<h2 align="left">Get Started</h1>
+This provides instructions to set up the project and locally use it
+<h3 align="left">Install these</h1>
+<p>Java Develelopment Kit 17</p>
+<p>Maven</p>
+<p>MariaDB</p>
+<h3 align="left">App Installation</h1>
+1. Clone repository:
+
+ ```sh
+  git clone https://github.com/umuttig37/CarRentalWeb.git
+  ```
+
+Comprehensive Documentation for Installation [Product Documentation - User Documentation](https://github.com/umuttig37/CarRentalWeb/blob/master/documentation/Product%20Documentation/User%20Documentation/README.md)
+
+
+
 ---
-
-<h3 align="center">🗄️ Database Structure</h3>
-
-### User Table
-| Field           | Description                                   |
-|-----------------|-----------------------------------------------|
-| **UserId**      | Unique identifier for each user.              |
-| **UserFirstName** | The first name of the user.                  |
-| **UserLastName**  | The last name of the user.                   |
-| **UserPassword** | Password for the user’s account.             |
-| **UserEmail**   | User's email address.                         |
-
-### Vehicle Table
-| Field             | Description                                |
-|-------------------|--------------------------------------------|
-| **VehicleId**      | Unique identifier for each vehicle.        |
-| **VehicleReg**     | Vehicle registration number.               |
-| **VehicleAvailable** | Availability status for rentals.        |
-| **VehicleColor**   | Color of the vehicle.                     |
-| **VehicleType**    | Vehicle type (e.g., Sedan, SUV).          |
-| **VehiclePrice**   | Rental price of the vehicle.              |
-| **VehicleModel**   | Vehicle model.                            |
-| **VehicleMF**      | Manufacturer of the vehicle.              |
-| **VehicleTrans**   | Transmission type (manual/automatic).     |
-
-### Rental Table
-| Field             | Description                                |
-|-------------------|--------------------------------------------|
-| **RentalId**       | Unique identifier for each rental.         |
-| **RentalDate**     | Start date of the rental.                  |
-| **RentalEndDate**  | End date of the rental.                    |
