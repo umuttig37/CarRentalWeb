@@ -24,7 +24,8 @@ The system follows a **three-tier architecture**:
 [tähän kuva arkkitehtuurista]
 
 ---
-
+## 4. Audiences
+Developers, system architects, QA testers, and support engineers.
 
 ## 5. Database Schema
 ### 5.1 Relational Database: MariaDB
