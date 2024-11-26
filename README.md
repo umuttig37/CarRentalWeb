@@ -6,6 +6,16 @@
 
 Car Rental Web is a web application designed for managing car rentals. It provides users with a seamless experience for browsing available cars, making reservations, and managing their rentals.
 
+
+
+
+
+
+
+
+
+
+
 ---
 
 <h3 align="center">🎨 Design</h3>
