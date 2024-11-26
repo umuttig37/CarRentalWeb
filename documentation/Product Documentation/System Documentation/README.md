@@ -41,7 +41,8 @@ The system follows a **three-tier architecture**:
 - **Rental_Transaction:** Stores rentals details (rental_id, rental_date, rental_end_date, vehicle_id).
 
 **Database Schema:**
-[https://github.com/umuttig37/CarRentalWeb/blob/master/documentation/Images/image.png]
+![image](https://github.com/user-attachments/assets/72db7dac-096f-4352-960a-a3b5ab45cad5)
+
 
 ## 6. Change Logs
 ### 6.1 Version 1.0.0
