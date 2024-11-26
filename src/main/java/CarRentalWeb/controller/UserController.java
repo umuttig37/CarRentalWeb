@@ -4,28 +4,27 @@ import CarRentalWeb.model.AuthenticationResponse;
 import CarRentalWeb.model.User;
 import CarRentalWeb.service.UserService;
 import CarRentalWeb.Util.JwtUtil;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.Map;
 
+// This is the controller for the user endpoints
 @RestController
 @RequestMapping("/api/users")
 public class UserController {
-    @Autowired
-    private UserService userService;
 
-    @Autowired
-    private JwtUtil jwtUtil;
+    private final UserService userService;
+    private final JwtUtil jwtUtil;
+    private final AuthenticationManager authenticationManager;
 
-    @Autowired
-    private AuthenticationManager authenticationManager;
-
+    public UserController(UserService userService, JwtUtil jwtUtil, AuthenticationManager authenticationManager) {
+        this.userService = userService;
+        this.jwtUtil = jwtUtil;
+        this.authenticationManager = authenticationManager;
+    }
+    // This method uses the UserService to register a new user
     @PostMapping("/register")
     public ResponseEntity<?> registerUser(@RequestBody User user) {
         user.setUserLastname(user.getUserLastname());
@@ -33,10 +32,9 @@ public class UserController {
         User registeredUser = userService.registerUser(user);
         return ResponseEntity.ok(registeredUser);
     }
-
+    // This method uses the UserService to login a user
     @PostMapping("/login")
     public ResponseEntity<?> loginUser(@RequestBody Map<String, String> loginDetails) {
-        System.out.println("loginDetails: " + loginDetails);
         String username = loginDetails.get("username");
         String password = loginDetails.get("password");
         User user = userService.loginUser(username, password);

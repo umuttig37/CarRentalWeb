@@ -1,12 +1,12 @@
 package CarRentalWeb.DTO;
 
+// This class is used to represent a user DTO
 public class UserDTO {
     private String userName;
     private String userEmail;
     private String userFirstName;
     private String userLastName;
 
-    // Constructor
     public UserDTO(String userName, String userEmail, String userFirstName, String userLastName) {
         this.userName = userName;
         this.userEmail = userEmail;

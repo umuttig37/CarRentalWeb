@@ -3,6 +3,7 @@ package CarRentalWeb.controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
+// This is just a simple controller to return the HTML pages
 @Controller
 public class PageController {
 

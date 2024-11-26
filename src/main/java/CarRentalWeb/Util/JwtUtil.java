@@ -12,7 +12,7 @@ import java.util.Map;
 @Component
 public class JwtUtil {
     private static String secret = "your_jwt_secret";
-    private static long expiration = 604800000L; // 7 days in milliseconds
+    private static long expiration = 604800000L;
 
     // Generate token for user
     public static String generateToken(String username) {

@@ -19,6 +19,7 @@ public class VehicleController {
         this.vehicleService = vehicleService;
     }
 
+    // This uses the VehicleService to get all vehicles
     @GetMapping("/api/vehicle")
     public List<Vehicle> getVehicles() {
         List<Vehicle> vehicles = vehicleService.getAllVehicles();

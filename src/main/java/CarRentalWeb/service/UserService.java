@@ -2,7 +2,6 @@ package CarRentalWeb.service;
 
 import CarRentalWeb.model.User;
 import CarRentalWeb.repository.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -13,11 +12,14 @@ import java.util.ArrayList;
 
 @Service
 public class UserService implements UserDetailsService {
-    @Autowired
-    private UserRepository userRepository;
 
-    @Autowired
-    PasswordEncoder passwordEncoder;
+    private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
+
+    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder) {
+        this.userRepository = userRepository;
+        this.passwordEncoder = passwordEncoder;
+    }
 
     public User registerUser(User user) {
         user.setUserPassword(passwordEncoder.encode(user.getUserPassword()));
@@ -25,11 +27,9 @@ public class UserService implements UserDetailsService {
     }
 
     public User loginUser(String username, String userpassword) {
-        System.out.println("username: " + username + " userpassword: " + userpassword);
         if (userpassword == null) {
             throw new IllegalArgumentException("rawPassword cannot be null");
         }
-        System.out.println("rawPassword: " + userpassword);
         User user = findByUserName(username);
         if (user != null && passwordEncoder.matches(userpassword, user.getUserPassword())) {
             return user;
@@ -39,7 +39,6 @@ public class UserService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        // Assuming default language is "en"
         User user = findByUserName(username);
         if (user == null) {
             throw new UsernameNotFoundException("User not found with username: " + username);

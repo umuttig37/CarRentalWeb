@@ -5,6 +5,7 @@ public class AuthenticationResponse {
     private String email;
     private String token;
 
+    // Public AuthenticationResponse is empty because it is a POJO
     public AuthenticationResponse() {}
 
     public String getUsername() {

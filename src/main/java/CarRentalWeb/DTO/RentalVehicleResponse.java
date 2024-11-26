@@ -1,7 +1,7 @@
 package CarRentalWeb.DTO;
 
 import java.time.LocalDate;
-
+// This class is used to represent a rental vehicle response
 public class RentalVehicleResponse {
     private final String vehicleReg;
     private final String vehicleTitle;

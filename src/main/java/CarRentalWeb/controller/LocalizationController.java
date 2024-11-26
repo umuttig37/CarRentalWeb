@@ -2,7 +2,7 @@ package CarRentalWeb.controller;
 
 import org.springframework.web.bind.annotation.*;
 import org.springframework.context.MessageSource;
-import org.springframework.beans.factory.annotation.Autowired;
+
 import java.util.Locale;
 import java.util.Map;
 import java.util.HashMap;
@@ -12,9 +12,13 @@ import java.util.ResourceBundle;
 @RequestMapping("/api/localization")
 public class LocalizationController {
 
-    @Autowired
-    private MessageSource messageSource;
+    private final MessageSource messageSource;
 
+    public LocalizationController(MessageSource messageSource) {
+        this.messageSource = messageSource;
+    }
+
+    // This returns the page messages based on the language, country, and page
     @GetMapping("/messages")
     public Map<String, String> getPageMessages(@RequestParam("lang") String lang,
                                                @RequestParam("country") String country,

@@ -1,6 +1,7 @@
 // RentalRequest.java
 package CarRentalWeb.controller;
 
+// This class is used to represent a rental request
 public class RentalRequest {
     private String vehicleReg;
     private String pickupDate;

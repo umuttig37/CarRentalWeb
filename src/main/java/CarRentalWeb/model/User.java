@@ -1,6 +1,8 @@
 package CarRentalWeb.model;
 
 import jakarta.persistence.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @Entity
 @Table(name = "user")
@@ -12,6 +14,8 @@ import jakarta.persistence.*;
         @SecondaryTable(name = "user_zh")
 })
 public class User {
+
+    private static final Logger logger = LoggerFactory.getLogger(User.class);
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -87,6 +91,9 @@ public class User {
             case "fr": this.userLastnameFr = userLastname; break;
             case "jp": this.userLastnameJp = userLastname; break;
             case "zh": this.userLastnameZh = userLastname; break;
+            default:
+                logger.warn("Unsupported language - {}", language);
+                break;
         }
     }
 
@@ -107,6 +114,9 @@ public class User {
             case "fr": this.userFirstNameFr = userFirstName; break;
             case "jp": this.userFirstNameJp = userFirstName; break;
             case "zh": this.userFirstNameZh = userFirstName; break;
+            default:
+                logger.warn("Unsupported language - {}", language);
+                break;
         }
     }
 }

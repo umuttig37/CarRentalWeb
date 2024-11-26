@@ -29,7 +29,7 @@ public class RentalController {
         this.userRepository = userRepository;
         this.vehicleRepository = vehicleRepository;
     }
-
+    // This method rents a vehicle for the authenticated user
     @PostMapping("/rent")
     public ResponseEntity<?> rentVehicle(@RequestBody RentalRequest rentalRequest, Principal principal) {
         if (principal == null) {
@@ -37,7 +37,6 @@ public class RentalController {
         }
 
         String username = principal.getName();
-        System.out.println("User " + username + " is renting a vehicle");
         User authenticatedUser = findByUserName(username); // Assuming default language is "en"
 
         if (authenticatedUser != null) {
@@ -65,14 +64,12 @@ public class RentalController {
             rentalTransaction.setRentalEndDate(dropoffDate);
 
             rentalTransactionRepository.save(rentalTransaction);
-            System.out.println("Rental confirmed for user " + username);
-
             return ResponseEntity.ok("Rental confirmed");
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found");
         }
     }
-
+    // This method returns the rentals for the authenticated user
     @GetMapping("/rentals")
     public ResponseEntity<?> getRentals(Principal principal) {
         if (principal == null) {
@@ -80,9 +77,9 @@ public class RentalController {
         }
 
         String username = principal.getName();
-        System.out.println("User " + username + " is fetching their rentals");
-        User authenticatedUser = findByUserName(username); // Assuming default language is "en"
+        User authenticatedUser = findByUserName(username);
 
+        // If the authenticated user is not found, return a 404 status code with the message "User not found"
         if (authenticatedUser != null) {
             List<RentalTransaction> rentals = rentalTransactionRepository.findByUser(authenticatedUser);
             List<RentalVehicleResponse> vehicles = rentals.stream()
@@ -109,7 +106,7 @@ public class RentalController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found");
         }
     }
-
+    // This method returns the user by username
     private User findByUserName(String username) {
         return userRepository.findByUserName(username);
     }
