@@ -36,12 +36,13 @@ Car Rental Web is a web application designed for managing car rentals. It provid
 | [JaCoCo Maven Plugin](https://mvnrepository.com/artifact/org.jacoco/jacoco-maven-plugin) | For generating test coverage reports.               |
 
 
-<h2 align="left">Get Started</h1>
-This provides instructions to set up the project and locally use it
-<h3 align="left">Install these</h1>
-<p>Java Develelopment Kit 17</p>
-<p>Maven</p>
-<p>MariaDB</p>
+## **Installation Guide**  
+### Prerequisites  
+Before installing, ensure you have:  
+- **Java 17** or later installed  
+- **Maven** installed
+- **MariaDB** installed   
+- **Browser** (e.g., Chrome, Firefox)
 <h3 align="left">App Installation</h1>
 1. Clone repository:
 
