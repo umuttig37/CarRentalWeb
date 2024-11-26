@@ -31,7 +31,7 @@ The system follows a **three-tier architecture**:
 **Database Name:** `CarRentalSystem`
 
 **Tables:**
-- **Vehicle:** Stores vehicle details (vehicle_reg, image, vehicle_available, vehicle_consumption, vehicle_fuel, vehicle_people, vehicle_price, vehicle_title, vehicle_transmission, vehicle_year).
+- **Vehicle:** Stores vehicle details ***(vehicle_reg, image, vehicle_available, vehicle_consumption, vehicle_fuel, vehicle_people, vehicle_price, vehicle_title, vehicle_transmission, vehicle_year)***
 - **User:** Stores user information (user_id, language, user_name, user_email, user_password)
 - **user_fi** Stores user information in Finnish ***(user_first_name_fi, user_lastname_fi, user_id)***
 - **user_en** Stores user information in English ***(user_first_name_ed, user_lastname_ed, user_id)***
