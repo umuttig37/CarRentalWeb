@@ -21,7 +21,8 @@ The system follows a **three-tier architecture**:
 - **Data Layer:** Manages data storage and retrieval.
 
 ### 3.2 System Architecture Diagram
-[tähän kuva arkkitehtuurista]
+![Untitled-5-01](https://github.com/user-attachments/assets/81190190-dbd7-4ddb-9179-e7c496c467ec)
+
 
 ---
 ## 4. Audiences
