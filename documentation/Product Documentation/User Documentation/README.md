@@ -26,7 +26,8 @@ The **Car Rental System** is a browser-based Java Spring Boot application design
 ### Prerequisites  
 Before installing, ensure you have:  
 - **Java 17** or later installed  
-- **Maven** installed   
+- **Maven** installed
+- **MariaDB** installed   
 - **Browser** (e.g., Chrome, Firefox)
 
 ---
