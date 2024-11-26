@@ -32,13 +32,13 @@ The system follows a **three-tier architecture**:
 
 **Tables:**
 - **Vehicle:** Stores vehicle details (vehicle_reg, image, vehicle_available, vehicle_consumption, vehicle_fuel, vehicle_people, vehicle_price, vehicle_title, vehicle_transmission, vehicle_year).
-- **User:** Stores user information (user_id, language, user_name, user_email, uesr_password)
-- **User_fi** Stores user information in Finnish (user_first_name_fi, user_lastname_fi, user_id)
-- **user_en** Stores user information in English (user_first_name_ed, user_lastname_ed, user_id)
-- **user_fr** Stores user information in French (user_first_name_fr, user_lastname_fr, user_id)
-- **user_jp** Stores user information in Japanese (user_first_name_jp, user_lastname_jp, user_id)
-- **user_cn** Stores user information in Chinese (user_first_name_cn, user_lastname_cn, user_id)
-- **Rental_Transaction:** Stores rentals details (rental_id, rental_date, rental_end_date, vehicle_id).
+- **User:** Stores user information (user_id, language, user_name, user_email, user_password)
+- **user_fi** Stores user information in Finnish ***(user_first_name_fi, user_lastname_fi, user_id)***
+- **user_en** Stores user information in English ***(user_first_name_ed, user_lastname_ed, user_id)***
+- **user_fr** Stores user information in French ***(user_first_name_fr, user_lastname_fr, user_id)***
+- **user_jp** Stores user information in Japanese ***(user_first_name_jp, user_lastname_jp, user_id)***
+- **user_cn** Stores user information in Chinese ***(user_first_name_cn, user_lastname_cn, user_id)***
+- **Rental_Transaction:** Stores rentals details ***(rental_id, rental_date, rental_end_date, vehicle_id)***
 
 **Database Schema:**
 
