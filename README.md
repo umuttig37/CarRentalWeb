@@ -63,7 +63,7 @@ Before installing, ensure you have:
   git clone https://github.com/umuttig37/CarRentalWeb.git
   ```
 ---
-Comprehensive Documentation for Installation [Product Documentation - User Documentation](https://github.com/umuttig37/CarRentalWeb/blob/master/documentation/Product%20Documentation/User%20Documentation/README.md)
+Comprehensive Documentation for Installation [Product Documentation - User Documentation](https://github.com/umuttig37/CarRentalWeb/tree/master/documentation/Product/User)
 
 
 
