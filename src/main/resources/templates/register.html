@@ -120,31 +120,38 @@
     });
 
     document.getElementById('registerForm').addEventListener('submit', async (e) => {
+        e.preventDefault(); // Prevent default form submission
+
+        // Check if a language is selected
         if (!selectedLanguage) {
             alert('Please select a language');
-            e.preventDefault();
             return;
         }
-        const userName = document.getElementById('userName').value;
-        const userLastname = document.getElementById('userLastname').value;
-        const userFirstName = document.getElementById('userFirstName').value;
+
+        // Collect form data
+        const userName = document.getElementById('userName').value.trim();
+        const userLastname = document.getElementById('userLastname').value.trim();
+        const userFirstName = document.getElementById('userFirstName').value.trim();
         const userPassword = document.getElementById('userPassword').value;
-        const userEmail = document.getElementById('userEmail').value;
+        const userEmail = document.getElementById('userEmail').value.trim();
         const language = document.getElementById('language').value;
-        console.log({userEmail, userPassword, language, userName, userFirstName, userLastname})
-        const response = await fetch('/api/users/register', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({userEmail, userPassword, language, userName, userFirstName, userLastname}),
-        });
-        console.log(response);
-        console.log(await response.json());
-        if (response.ok) {
-            console.log('Registration successful');
-        } else {
-            console.error('Registration failed', response.status, await response.text());
+
+        // Post data to the backend
+        try {
+            const response = await fetch('/api/users/register', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ userEmail, userPassword, language, userName, userFirstName, userLastname }),
+            });
+
+            // Handle the response
+            if (response.ok) {
+                window.location.href = '/login';
+            }
+        } catch (error) {
+            console.error('An error occurred:', error);
         }
     });
 </script>
